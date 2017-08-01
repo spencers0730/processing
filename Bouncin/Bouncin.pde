@@ -14,7 +14,7 @@ void draw() {
   float avgY = 0;
 
   for (Ball b : balls) {
-    b.update(25);
+    b.update(1);
     avgY += b.pos.y;
   }
   
@@ -26,7 +26,7 @@ void draw() {
 }
 
 void mousePressed() {
-  spawnBall(100);
+  spawnBall(1000);
 }
 
 void spawnBall(int num) {

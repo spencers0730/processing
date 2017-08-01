@@ -26,7 +26,7 @@ boolean stationary = false;
 final String inst = "SPACE: PAUSE, TAB: SHOW VEL LINES, 0: STATIONARY MODE, 1: CLEAR, 2: SHOW TRAILS, 3: COMBINE MODE, CLICK FOR BALLS";
 
 int accuracy = 25;
-float speed = .1;
+float speed = 1;
 
 void setup()
 {
