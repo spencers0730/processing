@@ -1,7 +1,7 @@
 ArrayList<Particle> balls = new ArrayList<Particle>();
 
 final float MINVEL = 2;
-final float MAXVEL = 6;
+final float MAXVEL = 7;
 
 final float MINBOUNCE = .8;
 final float MAXBOUNCE = .95;
