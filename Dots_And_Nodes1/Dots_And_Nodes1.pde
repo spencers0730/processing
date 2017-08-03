@@ -1,4 +1,4 @@
-final int NUM_NODES = 10;
+final int NUM_NODES = 100;
 final int MIN_NEIGHBORS = 4;
 final int MAX_NEIGHBORS = 5;
 

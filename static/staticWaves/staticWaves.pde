@@ -29,9 +29,9 @@ void draw()
 
   }
   
-  curveHeight *= random(1 - mutation, 1 + mutation); 
-  period *= random(-mutation, mutation); 
-  waveHeight *= random(1 - mutation, 1 + mutation);
+  //curveHeight *= random(1 - mutation, 1 + mutation); 
+  //period *= random(-mutation, mutation); 
+  //waveHeight *= random(1 - mutation, 1 + mutation);
   waveStart += waveStep;
   waveStart %= height;
   

@@ -1,4 +1,4 @@
-final float MAG = .05;
+ final float MAG = .05;
 final int MINLIFE = 45;
 final int MAXLIFE = 600;
 
@@ -48,7 +48,8 @@ void draw()
     p2.update();
     
     //stroke(hu, 255, 255);
-    stroke(map(dist(p1.pos.x, p1.pos.y, p2.pos.x, p2.pos.y), 0, maxDist, 0, 255), 255, 255);
+    //stroke(map(dist(p1.pos.x, p1.pos.y, p2.pos.x, p2.pos.y), 0, maxDist, 0, 255), 255, 255);
+    stroke(map(p1.count, 0, p1.lifetime, 0, 255), 255, 255);
     line(p1.pos.x, p1.pos.y, p2.pos.x, p2.pos.y);
     
   }

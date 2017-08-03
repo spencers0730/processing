@@ -9,7 +9,7 @@ void setup()
 void draw()
 {
   background(51);
-  int j = 6;
+  int j = 600;
   for(int i = 0; i <= j; i++)
   {
     float hu = random(255);

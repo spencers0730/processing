@@ -1,6 +1,6 @@
 PImage cat;
 
-final float max = sqrt(sq(1080 / 2) + sq(1920 / 2));
+//final float max = sqrt(sq(width / 2) + sq(height / 2));
 
 void setup()
 {
@@ -16,12 +16,12 @@ void setup()
 void draw()
 {
   background(0);  
-  float num = map(dist(mouseX, mouseY, width / 2, height / 2), 10, max, 3, 100);
+  float num = map(dist(mouseX, mouseY, width / 2, height / 2), 10, 1000, 3, 100);
   num = constrain(num, 3, 100);
   if(num <= 3.5) background(0, 255, 255);
-  else if(num >= 99.5) background(cat);
+  else if(num >= 99.5) image(cat, 0, 0, width, height);
   
-  float step = TWO_PI / num;
+  float step = TWO_PI / floor(num);
   
   stroke(255);
  
