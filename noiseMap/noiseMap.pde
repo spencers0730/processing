@@ -1,27 +1,36 @@
-float zOff = 0;
+float z = 0;
 
-final float s = 20;
+float increment = .01;
+
+float s = 20;
 
 void setup() {
   fullScreen();
 }
 
-void draw() {
+void draw(){
   background(0);
-  float xOff = 0;
-  float yOff = 0;
   
-  for (float x = 0; x < width; x += s) {
-    for (float y = 0; y < height; y += s) {
+  int maxX = int(width / s);
+  int maxY = int(height /s);
+  
+  float l = s / 2;
+  
+  for(int i = 0; i < maxX; i++)
+    for(int j = 0; j < maxY; j++){
       pushMatrix();
-      translate(x, y);
-      rotate(map(noise(xOff, yOff, zOff), 0, 1, 0, TWO_PI));
+      translate(i * s, j * s);
+      rotate(angle(i, j));
+      //rotate(0);
       stroke(255);
-      line(-.5*s,0,.5*s,0);
+      line(-l, 0, l, 0);
+      line(0, -l, l, 0);
+      line(0, l, l, 0);
       popMatrix();
-      yOff += .01;
     }
-    xOff += .02;
-  }
-  zOff += .05;
+}
+
+float angle(float x, float y) {
+  z += increment / 5000;
+  return map(noise(x * increment, y * increment, z), 0, 1, -PI, PI);
 }

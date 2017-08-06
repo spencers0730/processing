@@ -1,12 +1,14 @@
 Point[][] grid;
 
 boolean mouse;
+boolean wind;
 
-final float target = 35;
+final float target = 20;
 final float corner = sqrt(2) * target;
-final float k = .001;
+final float k = .004;
 final float PULL = 15;
-final float GRAV = 0.1;
+final float GRAV = 0.05;
+final float WIND = .125;
 final float MIN_GRAV_DIST = 2;
 final float DRAG_CONST = .95;
 final float SIZE = target * .2;
@@ -20,8 +22,8 @@ void setup() {
   smooth(8);
   colorMode(HSB);
 
-  maxX = int(width / target) - 1;
-  maxY = int(height / target / 2) - 1;
+  maxX = int(width / target / 2) - 1;
+  maxY = int(height / target / 4 * 3) - 1;
 
   setPoints();
 }
@@ -30,19 +32,20 @@ void setPoints() {
   grid = new Point[maxX][maxY];
   for (int i = 0; i < grid.length; i++)
     for (int j = 0; j < grid[0].length; j++) {
-      grid[i][j] = new Point((i + 1) * target, (j + 1) * target, k, j == 0 && (i % ((grid.length - 1)/4) == 0)/* random(10000) < 1*/);
+      grid[i][j] = new Point((i + 1) * target, (j + 1) * target, k, i == 0);
     }
   mouse = false;
+  wind = true;
   background(0);
 }
 
 void draw() {
-  background(0, 10);
-  //pushMatrix();
-  //noStroke();
-  //fill(0, 64);
-  //rect(0, 0, width, height);
-  //popMatrix();
+  //background(0, 10);
+  pushMatrix();
+  noStroke();
+  fill(0, 64);
+  rect(0, 0, width, height);
+  popMatrix();
   for (int i = 0; i < grid.length; i++)
     for (int j = 0; j < grid[0].length; j++) {
       grid[i][j].update();
@@ -94,6 +97,9 @@ void keyPressed() {
   case 'm':
     mouse = !mouse;
     break;
+    case 'w':
+    wind = !wind;
+   break;
   default:
     background(0);
     break;
