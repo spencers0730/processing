@@ -30,16 +30,16 @@ class Point
     {
       this.reset();
     }
-    //if(this.pos.x <= 0 || this.pos.x >= width)
-    //{
-    //  this.pos.x = constrain(this.pos.x, 0, width);
-    //  this.vel.x *= -1;
-    //}
-    //if(this.pos.y <= 0 || this.pos.y >= height)
-    //{
-    //  this.pos.y = constrain(this.pos.y, 0, height);
-    //  this.vel.y *= -1;
-    //}
+    if(this.pos.x <= 0 || this.pos.x >= width)
+    {
+      this.pos.x = constrain(this.pos.x, 0, width);
+      this.vel.x *= -1;
+    }
+    if(this.pos.y <= 0 || this.pos.y >= height)
+    {
+      this.pos.y = constrain(this.pos.y, 0, height);
+      this.vel.y *= -1;
+    }
     
     //pushMatrix();
     //translate(this.pos.x, this.pos.y);
