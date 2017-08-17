@@ -1,10 +1,11 @@
  final float MAG = .05;
-final int MINLIFE = 45;
-final int MAXLIFE = 600;
+final int MINLIFE = 30;
+final int MAXLIFE = 60;
 
 ArrayList<Point> points;
 
-color bg = color(0,0,0,4);
+float alpha = 4;
+color bg = color(0,alpha);
 float hu;
 
 float maxDist;
@@ -19,7 +20,7 @@ void setup()
   hu = random(255);
   points = new ArrayList<Point>(); 
   
-  for(int i = 0; i < 51; i++)
+  for(int i = 0; i < 250; i++)
   {
     Point p1 = new Point(floor(random(MINLIFE, MAXLIFE)));
     Point p2 = new Point(floor(random(MINLIFE, MAXLIFE)));

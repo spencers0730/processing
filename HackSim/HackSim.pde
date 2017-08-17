@@ -3,8 +3,8 @@ int maxX, maxY;
 
 final float FONT_SIZE = 10;
 
-final int MAXCHARS = 50;
-final int MINCHARS = 25;
+final int MAXCHARS = 100;
+final int MINCHARS = 5;
 
 void setup() {
   //fullScreen();
