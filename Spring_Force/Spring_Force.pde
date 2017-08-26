@@ -6,12 +6,13 @@ boolean mouse;
 boolean wind;
 boolean show;
 
-final float target = 35;
-final float corner = sqrt(2) * target;
+final float target = 20;
+final float corner = .5 *2* sqrt(2) * target;
 final float k = .0075;
 final float PULL = 5;
-final float GRAV = .005;
-final float WIND = .05;
+final float GRAV = .075;
+final float WIND = .001;
+final float BUFFER = 1;
 final float MIN_GRAV_DIST = 2;
 final float DRAG_CONST = .95;
 final float SIZE = target * .2;
@@ -23,10 +24,10 @@ int maxY;
 void setup() {
   fullScreen(P2D);
   smooth(8);
-  flag = loadImage("flag.jpg");
+  flag = loadImage("bridge.png");
 
-  maxX = int(width / target * .9) - 1;
-  maxY = int(height / target * .8) - 1;
+  maxX = int(width / target * .5) - 1;
+  maxY = int(height / target * 1) - 1;
 
   setPoints();
 }
@@ -35,10 +36,10 @@ void setPoints() {
   grid = new Point[maxX][maxY];
   for (int i = 0; i < grid.length; i++)
     for (int j = 0; j < grid[0].length; j++) {
-      grid[i][j] = new Point((i + 1) * target, (j + 1) * target, k, i == 0 && j % ((grid[0].length - 1)) == 0);
+      grid[i][j] = new Point((i + 1) * target, (j + 1) * target, k, false && i == 0 && j % ((grid[0].length - 1)) == 0);
     }
   mouse = false;
-  wind = true;
+  wind = false;
   show = true;
   background(0);
 }

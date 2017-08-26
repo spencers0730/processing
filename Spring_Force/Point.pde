@@ -1,4 +1,4 @@
-final float increment = .0025;
+final float increment = .00025;
 float z = 0;
 
 float angle(float x, float y) {
@@ -43,6 +43,19 @@ class Point {
       this.vel.mult(DRAG_CONST);
       this.pos.add(this.vel);
       this.acc.setMag(0);
+
+      if (this.pos.x >= width|| this.pos.x <= 0)
+      {
+        this.vel.x *= -1;
+      }
+
+      if (this.pos.y >= height || this.pos.y <= 0)
+      {
+        this.vel.y *= -1;
+      }
+
+      this.pos.x = constrain(this.pos.x, -BUFFER, width + BUFFER);
+      this.pos.y = constrain(this.pos.y, -BUFFER, height + BUFFER);
     }
     if (show) {
       pushMatrix();

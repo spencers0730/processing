@@ -1,7 +1,7 @@
-float sigma(float[] x, float[] y) {
+float sigma(float[] x, Weight[] y) {
   float s = 0;
   for (int i = 0; i < x.length && i < y.length; i++) {
-    s += x[i] * y[i];
+    s += x[i] * y[i].val;
   }
   return s;
 }
@@ -14,7 +14,7 @@ class Neuron {
   int type;
 
   float[] inputs;
-  float[] weights;
+  Weight[] weights;
 
   float output;
 
@@ -23,33 +23,41 @@ class Neuron {
 
     if (type != BIAS) {
       this.inputs = new float[numInputs];
-      this.weights = new float[numInputs];
+      this.weights = new Weight[numInputs];
+      initWeights();
     } else {
       this.output = 1;
     }
   }
 
-  void setWeights() {
+  void initWeights() {
     for (int i = 0; i < this.weights.length; i++) {
-      this.weights[i] = random(-1, 1);
+      this.weights[i] = new Weight(random(-1, 1));
     }
   }
 
   void setWeights(float[] values) {
     if (values.length == this.weights.length) {
-      this.weights = values;
+      for (int i = 0; i < this.weights.length; i++) {
+        this.weights[i] = new Weight(values[i]);
+      }
     }
+  }
+  float[] getWeights(){
+    float[] weightVals = new float[this.weights.length];
+    for(int i = 0; i < this.weights.length; i++){
+      weightVals[i] = this.weights[i].val;
+    }
+    return weightVals;
   }
 
 
   float give(float[] inputs) {
-    if (this.type != BIAS) {
+    if (this.type == HIDDEN || this.type == OUTPUT) {
       this.inputs = inputs;
       this.output = sigmoid(sigma(this.inputs, this.weights));
     }
     return this.output;
   }
-  float give() {
-    return 1;
-  }
+
 }

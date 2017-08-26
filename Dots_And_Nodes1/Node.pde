@@ -1,4 +1,4 @@
-float distSq(float x1, float y1, float x2, float y2)
+  float distSq(float x1, float y1, float x2, float y2)
 {
   return sq(x1 - x2) + sq(y1 - y2);
 }
