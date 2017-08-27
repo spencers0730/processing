@@ -1,8 +1,8 @@
-final int inputs = 10;
-final int hiddenNum = 0;
-final int[] hiddenNeurons = new int[]{15, 15};
+final int inputs = 5;
+final int hiddenNum = 1;
+final int[] hiddenNeurons = new int[]{5};
 final int outputs = inputs;
-final float lr = 25;
+final float lr = .005;
 
 final float TOTAL_WIDTH = 800;
 final float TOTAL_HEIGHT = 800;

@@ -13,8 +13,6 @@ class Point {
   }
 
   void update(float val, float[] inputLines) {
-    this.circle(val);
-
     this.inputLines = inputLines;
     pushMatrix();
     for (int i = 0; i < this.inputLines.length; i++) {
@@ -27,6 +25,7 @@ class Point {
       line(this.x, this.y, this.x - X_STEP, Y_BUFF + Y_STEP * i);
     }
     popMatrix();
+    this.circle(val);
   }
 
 
