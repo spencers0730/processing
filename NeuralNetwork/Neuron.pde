@@ -20,10 +20,9 @@ class Neuron {
 
   Neuron(int type, int numInputs) {
     this.type = type;
-
+    this.inputs = new float[numInputs];
+    this.weights = new Weight[numInputs];
     if (type != BIAS) {
-      this.inputs = new float[numInputs];
-      this.weights = new Weight[numInputs];
       initWeights();
     } else {
       this.output = 1;
@@ -43,9 +42,9 @@ class Neuron {
       }
     }
   }
-  float[] getWeights(){
+  float[] getWeights() {
     float[] weightVals = new float[this.weights.length];
-    for(int i = 0; i < this.weights.length; i++){
+    for (int i = 0; i < this.weights.length; i++) {
       weightVals[i] = this.weights[i].val;
     }
     return weightVals;
@@ -59,5 +58,9 @@ class Neuron {
     }
     return this.output;
   }
-
+  void give(float input) {
+    if (this.type == INPUT) {
+      this.output = input;
+    }
+  }
 }
