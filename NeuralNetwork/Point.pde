@@ -19,7 +19,8 @@ class Point {
     pushMatrix();
     for (int i = 0; i < this.inputLines.length; i++) {
       if (map) {
-        stroke(map(this.inputLines[i], -1, 1, 0, 255));
+        //stroke(map(this.inputLines[i], minWeight, maxWeight, 0, 255));
+        stroke(0);
       } else {
         stroke(0);
       }

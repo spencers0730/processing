@@ -1,8 +1,8 @@
 final int inputs = 10;
 final int hiddenNum = 2;
-final int[] hiddenNeurons = new int[]{2, 2};
+final int[] hiddenNeurons = new int[]{15, 15};
 final int outputs = inputs;
-final float lr = .005;
+final float lr = .002;
 
 final float TOTAL_WIDTH = 800;
 final float TOTAL_HEIGHT = 800;
@@ -15,6 +15,9 @@ float Y_STEP;
 
 float SIZE;
 
+//float minWeight;
+//float maxWeight;
+
 Network net;
 
 Point[] p;
@@ -26,12 +29,15 @@ float totalError;
 boolean run, map;
 
 void setup() {
-  fullScreen();
+  //fullScreen();
 
   net = new Network(inputs, hiddenNum, hiddenNeurons, outputs, lr);
 
   run = false;
   map = false;
+
+  //minWeight = 0;
+  //maxWeight = 0;
 
   random = new float[inputs];
   target = new float[inputs];
@@ -51,7 +57,7 @@ void setup() {
 
   int num = 0;
   int index = 0;
-  
+
   //Y_STEP = TOTAL_HEIGHT / inputs;
   for (int i = 0; i < inputs + 1; i++) {
     p[num] = new Point(index * X_STEP + X_BUFF, i * Y_STEP + Y_BUFF, SIZE, index);
@@ -88,36 +94,51 @@ void draw() {
   for (int i = 0; i < hiddenNum; i++)
     for (int j = 0; j < hiddenNeurons[i] + 1; j++) {
       p[num].update(net.hidden[i].contents[j].output, net.hidden[i].contents[j].getWeights());
+      //if (map || true) {
+      //  minWeight = min(minWeight, min(net.hidden[i].contents[j].getWeights()));
+      //  maxWeight = max(maxWeight, max(net.hidden[i].contents[j].getWeights()));
+      //}
       num++;
     }
   for (int i = 0; i < outputs; i++) {
     p[num].update(net.output.contents[i].output, net.output.contents[i].getWeights());
+    //if (map|| true) {
+    //    minWeight = min(minWeight, min(net.output.contents[i].getWeights()));
+    //    maxWeight = max(maxWeight, max(net.output.contents[i].getWeights()));
+    //  }
     num++;
   }
   for (int i = 0; i < outputs; i++) {
     p[num].circle(target[i]);
     num++;
   }
+
+
+
   textSize(30);
   fill(0);
   //text(int(100*10*totalError)/10+ "%", width / 2, height - 30);
   text(totalError, width / 2, height - 30);
 
   if (run) {
-    mousePressed();
+    call(1);
   }
 }
 
 void mousePressed() {
+  call(1);
+}
 
-
-  for (int i = 0; i < random.length; i++) {
-    float r = int(random(0, 2));
-    random[i] = r;
-    target[target.length - i - 1] = r;
+void call(int n) {
+  for (int t = 0; t < n; t++) {
+    for (int i = 0; i < random.length; i++) {
+      float r = int(random(0, 2));
+      random[i] = r;
+      target[target.length - i - 1] = r;
+    }
+    net.iterate(random, target);
+    totalError = net.getTotalError();
   }
-  net.iterate(random, target);
-  totalError = net.getTotalError();
 }
 
 void keyPressed() {
@@ -127,6 +148,12 @@ void keyPressed() {
     break;
   case 'm':
     map = !map;
+    break;
+  case '1':
+    call(10);
+    break;
+  case '2':
+    call(500);
     break;
   }
 }
