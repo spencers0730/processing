@@ -1,8 +1,8 @@
 final int inputs = 10;
-final int hiddenNum = 2;
+final int hiddenNum = 0;
 final int[] hiddenNeurons = new int[]{15, 15};
 final int outputs = inputs;
-final float lr = .002;
+final float lr = 25;
 
 final float TOTAL_WIDTH = 800;
 final float TOTAL_HEIGHT = 800;
@@ -29,7 +29,8 @@ float totalError;
 boolean run, map;
 
 void setup() {
-  //fullScreen();
+  fullScreen();
+  colorMode(HSB);
 
   net = new Network(inputs, hiddenNum, hiddenNeurons, outputs, lr);
 
@@ -85,7 +86,8 @@ void setup() {
 }
 
 void draw() {
-  background(64, 128, 255);
+  //background(64, 128, 255);
+  background(128, 64, 200);
   int num = 0;
   for (int i = 0; i < inputs + 1; i++) {
     p[num].circle(net.input.contents[i].output);

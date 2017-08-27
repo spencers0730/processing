@@ -20,7 +20,7 @@ class Point {
     for (int i = 0; i < this.inputLines.length; i++) {
       if (map) {
         //stroke(map(this.inputLines[i], minWeight, maxWeight, 0, 255));
-        stroke(0);
+        stroke(map(this.inputLines[i], -1, 2, 0, 255), 255, 255);
       } else {
         stroke(0);
       }
