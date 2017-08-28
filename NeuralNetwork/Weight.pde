@@ -8,7 +8,7 @@ class Weight{
   
   void update(float newVal){
     this.val += newVal;  
-    println(newVal);
+    //println(newVal);
   }
   
   void setError(float error){

@@ -24,7 +24,7 @@ int maxY;
 void setup() {
   fullScreen(P2D);
   smooth(8);
-  flag = loadImage("bridge.png");
+  flag = loadImage("flag.png");
 
   maxX = int(width / target * .5) - 1;
   maxY = int(height / target * 1) - 1;

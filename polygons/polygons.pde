@@ -1,10 +1,12 @@
 PImage cat;
 
-//final float max = sqrt(sq(width / 2) + sq(height / 2));
+float max;
 
 void setup()
 {
   cat = loadImage("cat.jpg");
+  
+  max = sqrt(sq(width / 2) + sq(height / 2));
     
   fullScreen();
   colorMode(HSB);
@@ -16,7 +18,7 @@ void setup()
 void draw()
 {
   background(0);  
-  float num = map(dist(mouseX, mouseY, width / 2, height / 2), 10, 1000, 3, 100);
+  float num = map(dist(mouseX, mouseY, width / 2, height / 2), 0, max, 3, 100);
   num = constrain(num, 3, 100);
   if(num <= 3.5) background(0, 255, 255);
   else if(num >= 99.5) image(cat, 0, 0, width, height);
