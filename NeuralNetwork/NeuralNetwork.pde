@@ -1,8 +1,8 @@
-final int inputs = 10;
+final int inputs = 5;
 final int hiddenNum = 0;
 final int[] hiddenNeurons = new int[]{0};
 final int outputs = inputs;
-final float lr = 2;
+final float lr = .05;
 
 float TOTAL_WIDTH;
 float TOTAL_HEIGHT;
@@ -88,10 +88,9 @@ void setup() {
 
 void draw() {
   background(128, 64, 200);
-  
-      totalError = net.getTotalError();
 
-  
+  totalError = net.getTotalError();
+
   int num = 0;
   for (int i = 0; i < inputs + 1; i++) {
     p[num].circle(net.input.contents[i].output);
@@ -131,6 +130,7 @@ void call(int n) {
   for (int t = 0; t < n; t++) {
     for (int i = 0; i < random.length; i++) {
       float r = int(random(0, 2));
+      if(r == 0) r = -1;
       random[i] = r;
       target[target.length - i - 1] = r;
     }

@@ -80,7 +80,7 @@ class Network {
 
     Layer layerIn, layerOut;
 
-    for (int l = 0; l < this.numLayers - 1; l++) {
+    for (int l = this.numLayers - 2; l >= 0; l--) {
       if (l == 0) {
         layerIn = this.input;
       } else {
