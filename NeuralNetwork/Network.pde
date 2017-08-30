@@ -102,29 +102,30 @@ class Network {
         layerOut = this.output;
       }
 
-      for (int i = 0; i < layerIn.contents.length; i++) {
-        float valIn = layerIn.contents[i].output;
-        for (int j = 0; j < layerOut.neuronLength; j++) {
-          float valOut = layerOut.contents[j].output;
 
-          float deltaE = valOut * (1 - valOut);
-
-          if (layerOut.type == OUTPUT) {
-            deltaE *= this.error[j];
+      for (int j = 0; j < layerOut.neuronLength; j++) {
+        float valOut = layerOut.contents[j].output;
+        float deltaE = valOut * (1 - valOut);
+        
+        if (layerOut.type == OUTPUT) {
+          deltaE *= this.error[j];
+        } else {
+          Layer next;
+          if (l + 1 < this.hidden.length) {
+            next = this.hidden[l + 1];
           } else {
-            Layer next;
-            if (l + 1 < this.hidden.length) {
-              next = this.hidden[l + 1];
-            } else {
-              next = this.output;
-            }
-            float deltaK = 0;
-            for (int k = 0; k < next.neuronLength; k++) {
-              Weight nextWeight = next.contents[k].weights[j];
-              deltaK += nextWeight.deltaE * nextWeight.val;
-            }
-            deltaE *= deltaK;
+            next = this.output;
           }
+          float deltaK = 0;
+          for (int k = 0; k < next.neuronLength; k++) {
+            Weight nextWeight = next.contents[k].weights[j];
+            deltaK += nextWeight.deltaE * nextWeight.val;
+          }
+          deltaE *= deltaK;
+        }
+        
+        for (int i = 0; i < layerIn.contents.length; i++) {
+          float valIn = layerIn.contents[i].output;
           layerOut.contents[j].weights[i].setError(deltaE);
           deltaE *= valIn;
           float deltaW = -this.lr * deltaE;
