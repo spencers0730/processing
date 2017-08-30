@@ -1,8 +1,8 @@
-final int inputs = 2;
-final int hiddenNum = 1;
+final int inputs = 20;
+final int hiddenNum = 0;
 final int[] hiddenNeurons = new int[]{2};
 final int outputs = inputs;
-final float lr = .01;
+final float lr = 5;
 
 float TOTAL_WIDTH;
 float TOTAL_HEIGHT;
@@ -45,11 +45,13 @@ void setup() {
 
   int maxNeurons = max(inputs, max(hiddenNeurons), outputs);
 
-  TOTAL_WIDTH = width * 14. / 16.;
-  TOTAL_HEIGHT = height * 14. / 16.;
- 
-  X_BUFF = width * .0625;
-  Y_BUFF = height * .0625;
+  float buffer = .01;
+
+  TOTAL_WIDTH = width * (1 - 2 * buffer);
+  TOTAL_HEIGHT = height * (1 - 2 * buffer);
+
+  X_BUFF = width * buffer;
+  Y_BUFF = height * buffer;
 
   X_STEP = TOTAL_WIDTH / float(net.numLayers + 1);
   Y_STEP = TOTAL_HEIGHT / (maxNeurons + 1);
@@ -161,6 +163,9 @@ void keyPressed() {
     break;
   case '2':
     call(500);
+    break;
+  case '3':
+    call(2000);
     break;
   }
 }
