@@ -1,14 +1,14 @@
-final int inputs = 10;
-final int hiddenNum = 0;
-final int[] hiddenNeurons = new int[]{15, 15};
+final int inputs = 2;
+final int hiddenNum = 1;
+final int[] hiddenNeurons = new int[]{2};
 final int outputs = inputs;
-final float lr = 25;
+final float lr = .01;
 
-final float TOTAL_WIDTH = 800;
-final float TOTAL_HEIGHT = 800;
+float TOTAL_WIDTH;
+float TOTAL_HEIGHT;
 
-final float X_BUFF = 25;
-final float Y_BUFF = 25;
+float X_BUFF;
+float Y_BUFF;
 
 float X_STEP;
 float Y_STEP;
@@ -45,8 +45,16 @@ void setup() {
 
   int maxNeurons = max(inputs, max(hiddenNeurons), outputs);
 
-  X_STEP = TOTAL_WIDTH / (net.numLayers + .5);
+  TOTAL_WIDTH = width * 14. / 16.;
+  TOTAL_HEIGHT = height * 14. / 16.;
+ 
+  X_BUFF = width * .0625;
+  Y_BUFF = height * .0625;
+
+  X_STEP = TOTAL_WIDTH / float(net.numLayers + 1);
   Y_STEP = TOTAL_HEIGHT / (maxNeurons + 1);
+
+  println(TOTAL_WIDTH, TOTAL_HEIGHT, X_BUFF, Y_BUFF, X_STEP, Y_STEP);
 
   SIZE = Y_STEP / 3;
 
@@ -59,21 +67,18 @@ void setup() {
   int num = 0;
   int index = 0;
 
-  //Y_STEP = TOTAL_HEIGHT / inputs;
   for (int i = 0; i < inputs + 1; i++) {
     p[num] = new Point(index * X_STEP + X_BUFF, i * Y_STEP + Y_BUFF, SIZE, index);
     num++;
   }
   index++;
   for (int i = 0; i < hiddenNum; i++) {
-    //Y_STEP = TOTAL_HEIGHT / hiddenNeurons[i];
     for (int j = 0; j < hiddenNeurons[i] + 1; j++) {
       p[num] = new Point(index * X_STEP + X_BUFF, j * Y_STEP + Y_BUFF, SIZE, index);
       num++;
     }  
     index++;
   }
-  //Y_STEP = TOTAL_HEIGHT / outputs;
   for (int i = 0; i < outputs; i++) {
     p[num] = new Point(index * X_STEP + X_BUFF, i * Y_STEP + Y_BUFF, SIZE, index);
     num++;
