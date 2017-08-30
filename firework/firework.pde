@@ -4,8 +4,8 @@ ArrayList<Particle> debris;
 final float MINVELR = 7;
 final float MAXVELR = 15;
 
-final float MINRADR = 3;
-final float MAXRADR = 5;
+final float MINRADR = 4;
+final float MAXRADR = 8;
 
 final float MINBOUNCER = .7;
 final float MAXBOUNCER = .85;
@@ -17,10 +17,10 @@ final int MINLIFER = 80;
 final int MAXLIFER = 140;
 
 final float MINVELD = 0;
-final float MAXVELD = 5;
+final float MAXVELD = 7;
 
 final float MINRADD = 1;
-final float MAXRADD = 2;
+final float MAXRADD = 1.5;
 
 final float MINBOUNCED = .7;
 final float MAXBOUNCED = .85;
@@ -33,6 +33,8 @@ final int MAXPARTICLES = 100;
 
 final float GRAVANGRAVSTEP = .01;
 final float GRAVSTEP = .01;
+
+final float DENSITY = 1;
 
 PVector grav;
 
@@ -68,7 +70,7 @@ void draw()
     rockets.get(i).update();
     if(rockets.get(i).count <= 0)
     {
-      addDebris(int(random(MINPARTICLES, MAXPARTICLES)), rockets.get(i));
+      addDebris(rockets.get(i));
       rockets.remove(rockets.get(i));
       i--;
       addRockets++;
@@ -85,7 +87,8 @@ void draw()
     }
   }
   
-  addRocket(constrain(addRockets, 0, startRockets - rockets.size()));
+//addRocket(constrain(addRockets, 0, startRockets - rockets.size()));
+addRocket(constrain(addRockets, 0, rockets.size() - addRockets));
   
   if(mousePressed)
   {
@@ -140,13 +143,14 @@ void addRocket(int num)
   }
 }
 
-void addDebris(int num, Particle parent)
+void addDebris(Particle parent)
 {
-    for(int i = 0; i < num; i++)
+    for(float i = parent.mass; i > 0; i += 0)
     {
       PVector pos = new PVector(parent.pos.x, parent.pos.y);
       PVector vel = PVector.random2D().setMag(random(MINVELD, MAXVELD)).add(parent.vel);
       float rad = random(MINRADD, MAXRADD);
+      float mass = sq(rad) * DENSITY;
       float bounce = random(MINBOUNCED, MAXBOUNCED);
       int count = (int) random(MINLIFED, MAXLIFED);
       color col = parent.col;
@@ -154,5 +158,7 @@ void addDebris(int num, Particle parent)
       Particle p = new Particle(pos, vel, rad, bounce, count, col);
       
       debris.add(p);
+      
+      i -= mass;
     }
 }

@@ -37,7 +37,7 @@ class Arm
     
     pushMatrix();
     translate(this.anchor.x, this.anchor.y);
-    stroke(255, 32);
+    stroke(255);
     strokeWeight(2);
     rotate(this.pos);
     line(0,0,0, -100);
