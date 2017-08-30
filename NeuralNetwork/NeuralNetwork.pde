@@ -1,8 +1,8 @@
-final int inputs = 20;
+final int inputs = 10;
 final int hiddenNum = 0;
-final int[] hiddenNeurons = new int[]{2};
+final int[] hiddenNeurons = new int[]{0};
 final int outputs = inputs;
-final float lr = 5;
+final float lr = 2;
 
 float TOTAL_WIDTH;
 float TOTAL_HEIGHT;
@@ -14,9 +14,6 @@ float X_STEP;
 float Y_STEP;
 
 float SIZE;
-
-//float minWeight;
-//float maxWeight;
 
 Network net;
 
@@ -37,15 +34,12 @@ void setup() {
   run = false;
   map = false;
 
-  //minWeight = 0;
-  //maxWeight = 0;
-
   random = new float[inputs];
   target = new float[inputs];
 
   int maxNeurons = max(inputs, max(hiddenNeurons), outputs);
 
-  float buffer = .01;
+  float buffer = .025;
 
   TOTAL_WIDTH = width * (1 - 2 * buffer);
   TOTAL_HEIGHT = height * (1 - 2 * buffer);
@@ -93,8 +87,11 @@ void setup() {
 }
 
 void draw() {
-  //background(64, 128, 255);
   background(128, 64, 200);
+  
+      totalError = net.getTotalError();
+
+  
   int num = 0;
   for (int i = 0; i < inputs + 1; i++) {
     p[num].circle(net.input.contents[i].output);
@@ -103,18 +100,10 @@ void draw() {
   for (int i = 0; i < hiddenNum; i++)
     for (int j = 0; j < hiddenNeurons[i] + 1; j++) {
       p[num].update(net.hidden[i].contents[j].output, net.hidden[i].contents[j].getWeights());
-      //if (map || true) {
-      //  minWeight = min(minWeight, min(net.hidden[i].contents[j].getWeights()));
-      //  maxWeight = max(maxWeight, max(net.hidden[i].contents[j].getWeights()));
-      //}
       num++;
     }
   for (int i = 0; i < outputs; i++) {
     p[num].update(net.output.contents[i].output, net.output.contents[i].getWeights());
-    //if (map|| true) {
-    //    minWeight = min(minWeight, min(net.output.contents[i].getWeights()));
-    //    maxWeight = max(maxWeight, max(net.output.contents[i].getWeights()));
-    //  }
     num++;
   }
   for (int i = 0; i < outputs; i++) {
@@ -146,7 +135,6 @@ void call(int n) {
       target[target.length - i - 1] = r;
     }
     net.iterate(random, target);
-    totalError = net.getTotalError();
   }
 }
 
