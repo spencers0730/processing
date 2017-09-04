@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 ArrayList<Particle> rockets;
 ArrayList<Particle> debris;
 
@@ -16,7 +18,7 @@ final float MAXANGR = 5 * PI / 3;
 final int MINLIFER = 80;
 final int MAXLIFER = 140;
 
-final float MINVELD = 0;
+final float MINVELD = 5;
 final float MAXVELD = 9;
 
 final float MINRADD = 1;
@@ -43,9 +45,13 @@ boolean lines = false;
 
 int startRockets = 10;
 
+SoundFile pop;
+
 void setup()
 {
   fullScreen();
+  pop = new SoundFile(this, "pop.mp3");
+  
   rockets = new ArrayList<Particle>();
   debris = new ArrayList<Particle>();
 
@@ -70,6 +76,8 @@ void draw()
     rockets.get(i).update();
     if (rockets.get(i).count <= 0)
     {
+      pop.add(random(-.02, .02));
+      pop.play();
       addDebris(rockets.get(i));
       rockets.remove(rockets.get(i));
       i--;
@@ -87,7 +95,6 @@ void draw()
     }
   }
 
-  //addRocket(constrain(addRockets, 0, startRockets - rockets.size()));
   addRocket(constrain(addRockets, 0, rockets.size() - addRockets));
 
   if (mousePressed)
@@ -123,7 +130,7 @@ void addRocket(int num, PVector pos)
     float bounce = random(MINBOUNCER, MAXBOUNCER);
     int count = (int) random(MINLIFER, MAXLIFER);
 
-float gb = random(255);
+    float gb = random(128);
     color col = color(255, gb, gb);
 
     Particle p = new Particle(pos, vel, rad, bounce, count, col);
@@ -143,6 +150,7 @@ void addRocket(int num)
 void addDebris(Particle parent)
 {
   float step = TWO_PI / int(random(MINPARTICLES, MAXPARTICLES));
+  float div = random(MINVELD, MAXVELD);
   for (float t = 0; t < TWO_PI; t += step)
   {
     PVector pos = new PVector(parent.pos.x, parent.pos.y);
@@ -151,9 +159,8 @@ void addDebris(Particle parent)
     float yVel = 13 * cos(t) - 5 * cos(2 * t) - 2 * cos(3 * t) - cos(4 * t);
     PVector heart = new PVector(xVel, yVel).mult(-1);
 
-    PVector vel = heart.div(MAXVELD).add(parent.vel);
+    PVector vel = heart.div(div).add(parent.vel);
     float rad = random(MINRADD, MAXRADD);
-    float mass = sq(rad) * DENSITY;
     float bounce = random(MINBOUNCED, MAXBOUNCED);
     int count = (int) random(MINLIFED, MAXLIFED);
     color col = parent.col;

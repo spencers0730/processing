@@ -11,7 +11,7 @@ static final float MIN_SIZE = 1;
 static final float MAX_SIZE = 3;
 
 static final float MIN_N = 50;
-static final float MAX_N = 150;
+static final float MAX_N = 250;
 
 //text constants
 static final String instruct = "Click/Hold: Draw set. Quality: 1 Low, 2 Med, 3 High. Switch Mode: M. Color Mode: C";
