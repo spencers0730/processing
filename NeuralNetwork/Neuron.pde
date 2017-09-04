@@ -41,6 +41,10 @@ class Neuron {
         this.weights[i] = new Weight(values[i]);
       }
     }
+    //if (map) {
+    //  minWeight = min(minWeight, min(this.getWeights()));
+    //  maxWeight = max(maxWeight, max(this.getWeights()));
+    //}
   }
   float[] getWeights() {
     float[] weightVals = new float[this.weights.length];

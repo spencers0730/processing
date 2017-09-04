@@ -58,6 +58,15 @@ class Network {
     this.out = inputValues;
     this.backPropogate(targetValues);
     return this.out;
+    //this.input.giveVals(inputValues);
+    //this.hidden[0].giveVals(this.input.getVals());
+    //for (int i = 1; i < hidden.length; i++) {
+    //  this.hidden[i].giveVals(this.hidden[i - 1].getVals());
+    //}
+    //this.output.giveVals(this.hidden[hidden.length - 1].getVals());
+    //this.out = this.output.getVals();
+    //this.backPropogate(targetValues);
+    //return this.out;
   }
 
   void calcError(float[] targetValues) {
@@ -80,7 +89,7 @@ class Network {
 
     Layer layerIn, layerOut;
 
-    for (int l = this.numLayers - 2; l >= 0; l--) {
+    for (int l = 0; l < this.numLayers - 1; l++) {
       if (l == 0) {
         layerIn = this.input;
       } else {
@@ -92,10 +101,9 @@ class Network {
       } else {
         layerOut = this.output;
       }
-
-
       for (int j = 0; j < layerOut.neuronLength; j++) {
         float valOut = layerOut.contents[j].output;
+
         float deltaE = valOut * (1 - valOut);
 
         if (layerOut.type == OUTPUT) {
@@ -114,7 +122,6 @@ class Network {
           }
           deltaE *= deltaK;
         }
-
         for (int i = 0; i < layerIn.contents.length; i++) {
           float valIn = layerIn.contents[i].output;
           layerOut.contents[j].weights[i].setError(deltaE);
@@ -124,5 +131,45 @@ class Network {
         }
       }
     }
+
+    //for (int i = 0; i < this.hidden[this.hidden.length - 1].contents.length; i++) {
+    //  float inVal = this.hidden[this.hidden.length - 1].contents[i].output;
+    //  for (int j = 0; j < this.output.getLen(); j++) {
+    //     ln(j, this.output.getLen());
+    //    float outVal = this.output.contents[j].output;
+
+    //    float deltaE = this.error[j] * outVal * (1 - outVal);
+    //    this.output.contents[j].weights[i].setError(deltaE);
+    //    deltaE *= inVal;
+    //    float change = -this.lr * deltaE;
+    //    this.output.contents[j].weights[i].update(change);
+    //  }
+    //}
+
+    //for (int l = this.hidden.length - 1; l > 0; l--) 
+    //  for (int j = 0; j < this.hidden[l].contents.length; j++) {
+    //    float outVal = this.hidden[l].contents[j].output;
+
+    //    float deltaKTimesWeight = 0;
+    //    if (l == this.hidden.length - 1) {
+    //      for (int k = 0; k < this.output.contents.length; k++) {
+    //        deltaKTimesWeight += this.output.contents[j].weights[k].deltaE * this.output.contents[j].weights[k].val;
+    //      }
+    //    } else {
+    //      for (int k = 0; k < this.hidden[l + 1].contents.length; k++) {
+    //        deltaKTimesWeight += this.hidden[l + 1].contents[j].weights[k].deltaE * this.hidden[l + 1].contents[j].weights[k].val;
+    //      }
+    //    }
+
+    //    for (int i = 0; i < this.hidden[l - 1].contents.length; i++) {
+    //      float inVal = this.hidden[l - 1].contents[i].output;
+
+    //      float deltaE = this.error[j] * outVal * (1 - outVal) * deltaKTimesWeight;
+    //      this.output.contents[j].weights[i].setError(deltaE);
+    //      deltaE *= inVal;
+    //      float change = -this.lr * deltaE;
+    //      this.output.contents[j].weights[i].update(change);
+    //    }
+    //  }
   }
 }
