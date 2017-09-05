@@ -1,8 +1,8 @@
-final int inputs = 5;
+final int inputs = 40;
 final int hiddenNum = 0;
-final int[] hiddenNeurons = new int[]{0};
+final int[] hiddenNeurons = new int[]{45, 45};
 final int outputs = inputs;
-final float lr = .05;
+final float lr = 5;
 
 float TOTAL_WIDTH;
 float TOTAL_HEIGHT;
@@ -14,6 +14,9 @@ float X_STEP;
 float Y_STEP;
 
 float SIZE;
+
+//float minWeight;
+//float maxWeight;
 
 Network net;
 
@@ -34,18 +37,19 @@ void setup() {
   run = false;
   map = false;
 
+  //minWeight = 0;
+  //maxWeight = 0;
+
   random = new float[inputs];
   target = new float[inputs];
 
   int maxNeurons = max(inputs, max(hiddenNeurons), outputs);
 
-  float buffer = .025;
-
-  TOTAL_WIDTH = width * (1 - 2 * buffer);
-  TOTAL_HEIGHT = height * (1 - 2 * buffer);
-
-  X_BUFF = width * buffer;
-  Y_BUFF = height * buffer;
+  TOTAL_WIDTH = width * 14. / 16.;
+  TOTAL_HEIGHT = height * 14. / 16.;
+ 
+  X_BUFF = width * .0625;
+  Y_BUFF = height * .0625;
 
   X_STEP = TOTAL_WIDTH / float(net.numLayers + 1);
   Y_STEP = TOTAL_HEIGHT / (maxNeurons + 1);
@@ -87,10 +91,8 @@ void setup() {
 }
 
 void draw() {
+  //background(64, 128, 255);
   background(128, 64, 200);
-
-  totalError = net.getTotalError();
-
   int num = 0;
   for (int i = 0; i < inputs + 1; i++) {
     p[num].circle(net.input.contents[i].output);
@@ -99,10 +101,18 @@ void draw() {
   for (int i = 0; i < hiddenNum; i++)
     for (int j = 0; j < hiddenNeurons[i] + 1; j++) {
       p[num].update(net.hidden[i].contents[j].output, net.hidden[i].contents[j].getWeights());
+      //if (map || true) {
+      //  minWeight = min(minWeight, min(net.hidden[i].contents[j].getWeights()));
+      //  maxWeight = max(maxWeight, max(net.hidden[i].contents[j].getWeights()));
+      //}
       num++;
     }
   for (int i = 0; i < outputs; i++) {
     p[num].update(net.output.contents[i].output, net.output.contents[i].getWeights());
+    //if (map|| true) {
+    //    minWeight = min(minWeight, min(net.output.contents[i].getWeights()));
+    //    maxWeight = max(maxWeight, max(net.output.contents[i].getWeights()));
+    //  }
     num++;
   }
   for (int i = 0; i < outputs; i++) {
@@ -130,11 +140,11 @@ void call(int n) {
   for (int t = 0; t < n; t++) {
     for (int i = 0; i < random.length; i++) {
       float r = int(random(0, 2));
-      if(r == 0) r = -1;
       random[i] = r;
       target[target.length - i - 1] = r;
     }
     net.iterate(random, target);
+    totalError = net.getTotalError();
   }
 }
 
@@ -151,9 +161,6 @@ void keyPressed() {
     break;
   case '2':
     call(500);
-    break;
-  case '3':
-    call(2000);
     break;
   }
 }
