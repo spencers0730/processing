@@ -235,8 +235,6 @@ void mouseWheel(MouseEvent e)
 {
   float f = e.getCount();
 
-  println("hi");
-
   if (f != 0)
   {
     zoom = true;

@@ -1,4 +1,4 @@
-import processing.sound.*;
+//import processing.sound.*;
 
 ArrayList<Particle> rockets;
 ArrayList<Particle> debris;
@@ -45,12 +45,12 @@ boolean lines = false;
 
 int startRockets = 10;
 
-SoundFile pop;
+//SoundFile pop;
 
 void setup()
 {
   fullScreen();
-  pop = new SoundFile(this, "pop.mp3");
+  //pop = new SoundFile(this, "pop.mp3");
   
   rockets = new ArrayList<Particle>();
   debris = new ArrayList<Particle>();
@@ -76,8 +76,8 @@ void draw()
     rockets.get(i).update();
     if (rockets.get(i).count <= 0)
     {
-      pop.add(random(-.02, .02));
-      pop.play();
+      //pop.add(random(-.02, .02));
+      //pop.play();
       addDebris(rockets.get(i));
       rockets.remove(rockets.get(i));
       i--;
