@@ -110,7 +110,7 @@ color getColor(float x, float y, float w, float h, PImage image)
 
 PImage load(int n)
 {
-  int r = ceil(random(n));
+  int r = 7;//ceil(random(n));
   return loadImage("image" + r + ".jpg");
 }
 
