@@ -1,10 +1,10 @@
 final static int DEAD = 0;
 final static int ALIVE = 1;
 
-
 class Cell {
   float x, y;
   float size;
+  
   int state;
   int nextState;
 
@@ -18,13 +18,13 @@ class Cell {
     this.col = col;
   }
 
-void next(int state){
-  this.nextState = state;
+void next(int nextState){
+  this.nextState = nextState;
 }
 
   void update() {
     this.state = this.nextState;
-    if (this.state == 1) {
+    if (this.state == ALIVE) {
       pushMatrix();
       noStroke();
       fill(this.col);

@@ -1,6 +1,6 @@
 Cell[][] cells;
 
-final float size = 5;
+final float size = 4;
 int x;
 int y;
 
@@ -15,7 +15,9 @@ void setup() {
 
   for (int i = 0; i < cells.length; i++)
     for (int j = 0; j < cells[0].length; j++) {
-      cells[i][j] = new Cell(i * size, j * size, int(random(2)), size, color(255));//color(random(255), 255, 255));
+      int state = DEAD;
+      if (random(1) < .4) state = ALIVE;
+      cells[i][j] = new Cell(i * size, j * size, state, size, color(255));
     }
 }
 
@@ -27,12 +29,23 @@ void draw() {
       Cell current = cells[i][j];
       int state = current.state;
 
-      int neighbors = 0;
+      //int neighbors = 0;
 
-      for (int i2 = -1; i2 <= 1; i2++)
-        for (int j2 = -1; j2 <= 1; j2++) {
-          int i3 = mod((i + i2), cells.length);
-          int j3 = mod((j + j2), cells[0].length);
+      //for (int i2 = i - 1; i2 <= i + 1; i2++)
+      //  for (int j2 = j - 1; j2 <= j + 1; j2++) {
+      //    if (!(i == 0 && j == 0)) {
+      //      int i3 = mod((i2), cells.length);
+      //      int j3 = mod((j2), cells[0].length);
+      //      if (cells[i3][j3].state == ALIVE)
+      //        neighbors++;
+      //    }
+      //  }
+      int neighbors = -1;
+
+      for (int i2 = i - 1; i2 <= i + 1; i2++)
+        for (int j2 = j - 1; j2 <= j + 1; j2++) {
+          int i3 = mod((i2), cells.length);
+          int j3 = mod((j2), cells[0].length);
           if (cells[i3][j3].state == ALIVE)
             neighbors++;
         }
