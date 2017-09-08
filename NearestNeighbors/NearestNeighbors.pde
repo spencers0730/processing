@@ -25,7 +25,6 @@ void draw()
    for(Node n : nodes)
    {
      n.update();
-     n.show();
    }
 }
 

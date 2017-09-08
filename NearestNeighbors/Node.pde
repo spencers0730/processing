@@ -8,6 +8,7 @@ class Node
   PVector pos;
   PVector vel;
   ArrayList<Node> neighbors;
+  ArrayList<Node> nextNeighbors;
   int n;
   
   Node(float x, float y, int n)
@@ -18,15 +19,17 @@ class Node
     this.n = n;
   }
   
-  void update()
+  boolean update()
   {
+    this.nextNeighbors = this.neighbors;
     addNeighbors();
-    if(move)
-      this.move();
+    Collections.sort(new ArrayList<Node>(this.neighbors));
   }
   
   void show()
   {
+    if(move)
+      this.move();
     pushMatrix();
     stroke(255);
     text(this.neighbors.size(), this.pos.x, this.pos.y);

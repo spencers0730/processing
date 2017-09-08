@@ -13,23 +13,32 @@ class Cell {
   Cell(float x, float y, int state, float size, color col) {
     this.x = x;
     this.y = y;
-    this.state = state;
+    this.state = -1;
+    this.nextState = state;
     this.size = size;
     this.col = col;
   }
 
-void next(int state){
-  this.nextState = state;
-}
+  void next(int state) {
+    this.nextState = state;
+  }
 
   void update() {
-    this.state = this.nextState;
-    if (this.state == 1) {
-      pushMatrix();
-      noStroke();
-      fill(this.col);
-      rect(this.x, this.y, this.size, this.size);
-      popMatrix();
+    if (this.state != this.nextState) {
+      this.state = this.nextState;
+      this.show();
     }
+  }
+  void show() {
+    pushMatrix();
+    noStroke();
+    //stroke(128);
+    fill(0);
+    if (this.state == ALIVE) {
+      fill(this.col);
+      noStroke();
+    }
+    rect(this.x, this.y, this.size, this.size);
+    popMatrix();
   }
 }
