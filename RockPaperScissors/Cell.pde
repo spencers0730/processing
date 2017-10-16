@@ -1,7 +1,7 @@
-final int DEAD = 0;
-final int ROCK = 1;
-final int PAPER = 2;
-final int SCISSORS = 3;
+final int DEAD = -1;
+final int ROCK = 0;
+final int PAPER = 1;
+final int SCISSORS = 2;
 
 class Cell {
   float x, y;

@@ -1,6 +1,6 @@
 Cell[][] cells;
 
-final float size = 10;
+final float size = 1;
 int x;
 int y;
 
@@ -32,7 +32,7 @@ void reset() {
 
   for (int i = 0; i < cells.length; i++)
     for (int j = 0; j < cells[0].length; j++) {
-      cells[i][j] = new Cell(i * size, j * size, int(random(4)), size);
+      cells[i][j] = new Cell(i * size, j * size, int(random(0) - 1), size);
     }
 }
 
@@ -41,31 +41,39 @@ boolean decide(int i, int j) {
 }
 
 void iterate() {
-  for (int j = 0; j < cells[0].length; j++)
-    for (int i = 0; i < cells.length; i++) {
+  for (int i = 0; i < cells.length; i++)
+    for (int j = 0; j < cells[0].length; j++) {
       Cell current = cells[i][j];
 
       if (current.state != DEAD) {
         for (int i2 = -1; i2 <= 1; i2++)
           for (int j2 = -1; j2 <= 1; j2++) {
-            Cell check = cells[mod(i + i2, cells.length)][mod(j + j2, cells[0].length)];
-           switch(check.state){
-               case DEAD:
-               switch(check.nextState)
-           }
-            //if ((check.state - 1) % 3 <= current.state
-            //      && (check.state - 1) % 3 <= current.nextState) {
-            //  check.next(current.state);
-            //}
+            if (i2 * j2 == 0) {
+              Cell check = cells[mod(i + i2, cells.length)][mod(j + j2, cells[0].length)];
+              int winner = winner(current.state, check.state);
+              if (winner != 0) {
+                if (winner == 1) check.next(current.state);
+                else current.next(check.state);
+              }
+            }
           }
       }
     }
+
 
   for (int i = 0; i < cells.length; i++)
     for (int j = 0; j < cells[0].length; j++) {
       cells[i][j].update();
     }
 }
+
+int winner(int p1, int p2) {
+  if (p2 == DEAD) return 1;
+  if (p1 == DEAD) return 2;
+  if ((p1 + 2) % 3 == p2 || p1 - 1 == p2) return 1;
+  if ((p2 + 2) % 3 == p1 || p2 - 1 == p1) return 2;
+  return 0;
+} 
 
 void killAll() {
   for (int i = 0; i < cells.length; i++)

@@ -36,7 +36,8 @@ void reset() {
 }
 
 boolean decide(int i, int j) {
-  return i * j % 7 == 0;
+  return random(1) < .5;
+  //return i * j % 7 == 0;
 }
 
 void iterate() {
