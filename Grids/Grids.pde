@@ -1,11 +1,11 @@
-final float target = 20;
+final float target = 25;
 final float corner = .5 *2* sqrt(2) * target;
-final float k = .001;
+final float k = .00015;
 final float PULL = 5;
-final float GRAV = .01;
+final float GRAV = .1;
 final float WIND = .001;
 final float MIN_GRAV_DIST = 2;
-final float DRAG_CONST = .95;
+final float DRAG_CONST = .991;
 final float SIZE = target * .2;
 final float BUFFER = SIZE * 2;
 
@@ -18,7 +18,7 @@ boolean grav = true;
 void setup() {
   fullScreen(P2D);
 
-  g = new Grid[10];
+  g = new Grid[1];
   restart();
 }
 
@@ -32,7 +32,7 @@ void restart() {
   //float x = random(100, 500);
   //float y = random(100, 500);
   for (int i = 0; i < g.length; i++)
-    g[i] = new Grid(random(100, 500), random(100, 500), 10, 15,
+    g[i] = new Grid(100, 100, 50, 50,
       target, k, PULL, WIND, GRAV, MIN_GRAV_DIST, BUFFER, target * .25, DRAG_CONST,
       .0025, .00025);
 }
