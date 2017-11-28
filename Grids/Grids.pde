@@ -32,8 +32,8 @@ void restart() {
   //float x = random(100, 500);
   //float y = random(100, 500);
   for (int i = 0; i < g.length; i++)
-    g[i] = new Grid(random(100, 500), random(100, 500), 10, 15,
-      target, k, PULL, WIND, GRAV, MIN_GRAV_DIST, BUFFER, target * .25, DRAG_CONST,
+    g[i] = new Grid(random(100, 500), random(100, 500), 10, 15, 
+      target, k, PULL, WIND, GRAV, MIN_GRAV_DIST, BUFFER, target * .25, DRAG_CONST, 
       .0025, .00025);
 }
 

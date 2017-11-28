@@ -1,6 +1,6 @@
-final int inputs = 40;
-final int hiddenNum = 0;
-final int[] hiddenNeurons = new int[]{45, 45};
+final int inputs = 50;
+final int hiddenNum = 1;
+final int[] hiddenNeurons = new int[]{50, 5};
 final int outputs = inputs;
 final float lr = 5;
 
@@ -155,7 +155,7 @@ void keyPressed() {
     break;
   case 'm':
     map = !map;
-    break;
+    break; 
   case '1':
     call(10);
     break;

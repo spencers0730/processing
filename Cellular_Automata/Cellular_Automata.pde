@@ -1,6 +1,6 @@
 Cell[][] cells;
 
-final float size = 4;
+final float size = 10;
 int x;
 int y;
 

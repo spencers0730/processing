@@ -1,4 +1,4 @@
-class Cell {
+ class Cell {
   float x, y;
   float size;
   boolean state;

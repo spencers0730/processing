@@ -1,4 +1,4 @@
-oPImage flag;
+PImage flag;
 
 Point[][] grid;
 

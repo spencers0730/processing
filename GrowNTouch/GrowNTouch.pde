@@ -6,7 +6,7 @@ final float MIN_RAD = 1;
 final float SPACING = SPEED;
 
 final float MAX_TRIES = 50;
-final int MAX_FAILS = 20;
+final int MAX_FAILS = 200;
 
 int fails;
 ArrayList<Circle> circles;

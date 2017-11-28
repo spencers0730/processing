@@ -1,4 +1,4 @@
-float sigma(float[] x, Weight[] y) {
+  float sigma(float[] x, Weight[] y) {
   float s = 0;
   for (int i = 0; i < x.length && i < y.length; i++) {
     s += x[i] * y[i].val;

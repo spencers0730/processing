@@ -1,7 +1,7 @@
 Cell[][] cells;
 
 final float size = 10;
-int x;
+int x; 
 int y;
 
 boolean PAUSE;
