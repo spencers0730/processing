@@ -77,8 +77,11 @@ class Point {
     PVector diff = other.pos.copy().sub(this.pos);
     float distance = diff.mag() - target;
     PVector force = diff.mult(distance * 0.5 * (this.parent.kForce + other.parent.kForce));
+    PVector repel =  other.pos.copy().sub(this.pos).setMag(.0001 / sq(diff.mag()));
     this.vel.add(force);
     other.vel.add(force.mult(-1));
+    //this.vel.add(repel);
+    //other.vel.add(repel.mult(-1));
     pushMatrix();
     stroke( map(abs(distance), 0, target * .25, 64, 255));
     line(this.pos.x, this.pos.y, other.pos.x, other.pos.y);

@@ -68,7 +68,7 @@ class Grid {
         this.points[i][j] = new Point(x, y, false, this);
       }
 
-    this.accuracy = 1;
+    this.accuracy = 10;
     this.mouse = false;
     this.wind = false;
     this.grav = true;
