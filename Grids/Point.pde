@@ -86,5 +86,18 @@ class Point {
     stroke( map(abs(distance), 0, target * .25, 64, 255));
     line(this.pos.x, this.pos.y, other.pos.x, other.pos.y);
     popMatrix();
+    this.gravitate(other);
+  }
+  
+   public void gravitate(Point other)
+  {
+    float g = GRAV / 10;
+    PVector dist = this.pos.copy().sub(other.pos);
+    
+    dist.setMag(max(dist.mag(), 5));
+      
+    this.vel.add(dist.copy().setMag(g / sq(dist.mag())));
+    other.vel.add(dist.copy().mult(-1).setMag(g  / sq(dist.mag())));
+
   }
 }

@@ -68,10 +68,10 @@ class Grid {
         this.points[i][j] = new Point(x, y, false, this);
       }
 
-    this.accuracy = 10;
+    this.accuracy = 2;
     this.mouse = false;
     this.wind = false;
-    this.grav = true;
+    this.grav = false;
   }
 
   void changeAccuracy(int accuracy) {
@@ -91,8 +91,10 @@ class Grid {
   }
 
   void update() {
+    int timesUp = 0;
+    int shown = 0;
     for (int h = 0; h < this.accuracy; h++) {
-
+      timesUp++;
       for (int i = 0; i < this.points.length; i++)
         for (int j = 0; j < this.points[0].length; j++) {
           boolean right = i + 1 < this.points.length;
@@ -118,7 +120,10 @@ class Grid {
     for (int i = 0; i < this.points.length; i++)
       for (int j = 0; j < this.points[0].length; j++) {
         this.points[i][j].show();
+        shown++;
       }
+      
+      println(timesUp, shown);
   }
 
   float windAngle(float x, float y) {

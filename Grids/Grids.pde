@@ -1,8 +1,8 @@
-final float target = 25;
+final float target = 3;
 final float corner = .5 *2* sqrt(2) * target;
-final float k = .00015;
-final float PULL = 5;
-final float GRAV = .1;
+final float k = .00005;
+final float PULL = 1;
+final float GRAV = .01;
 final float WIND = .001;
 final float MIN_GRAV_DIST = 2;
 final float DRAG_CONST = .991;
@@ -13,7 +13,8 @@ Grid[] g;
 
 boolean mouse = false;
 boolean wind = false;
-boolean grav = true;
+boolean grav = false;
+boolean pause = false;
 
 void setup() {
   fullScreen(P2D);
@@ -23,28 +24,28 @@ void setup() {
 }
 
 void draw() {
-  background(0);
-  for (int i = 0; i < g.length; i++)
-    g[i].update();
+  if (!pause) {
+    background(0);
+
+    for (int i = 0; i < g.length; i++)
+      g[i].update();
+  }
 }
 
 void restart() {
-  //float x = random(100, 500);
-  //float y = random(100, 500);
+  int x = int(width / target);
+  int y = int(height / target); 
   for (int i = 0; i < g.length; i++)
-<<<<<<< HEAD
-    g[i] = new Grid(random(100, 500), random(100, 500), 10, 15, 
-      target, k, PULL, WIND, GRAV, MIN_GRAV_DIST, BUFFER, target * .25, DRAG_CONST, 
-=======
-    g[i] = new Grid(100, 100, 50, 50,
-      target, k, PULL, WIND, GRAV, MIN_GRAV_DIST, BUFFER, target * .25, DRAG_CONST,
->>>>>>> fe35580d8732509d665bc24a3cb626d74fc4c9cf
-      .0025, .00025);
+    g[i] = new Grid(target / 2, target / 2, x, y, 
+      target, k, PULL, WIND, GRAV, MIN_GRAV_DIST, BUFFER, target * .25, DRAG_CONST, .0025, .00025);
 }
 
 void reset() {
   for (int i = 0; i < g.length; i++)
     g[i].reset();
+  mouse();
+  wind();
+  grav();
 }
 void mouse() {
   for (int i = 0; i < g.length; i++)
@@ -58,6 +59,10 @@ void wind() {
 void grav() {
   for (int i = 0; i < g.length; i++)
     g[i].toggleGrav(grav);
+}
+
+void pause() {
+  pause = !pause;
 }
 
 
@@ -77,6 +82,9 @@ void keyPressed() {
     break;
   case 'r':
     reset();
+    break;
+  case ' ':
+    pause();
     break;
   case CODED:
     switch(keyCode) {

@@ -12,22 +12,47 @@ void setup() {
 
 void draw() {
   if (!done) {
+    background(0);
     updateSquares();
-  }
+    key();
+  } 
 }
 
 void updateSquares() {
-  background(0);
-
   for (int i = 0; i < boxes.length; i++)
     for (int j = 0; j < boxes[0].length; j++) {
       boxes[i][j].update();
     }
 }
 
+void key() {
+  pushMatrix();
+  fill(255);
+  stroke(255);
+  String s = "Current Player: " + ((player == 0) ? 1 : 0);
+  float location = size / 10;
+  float x = location;
+  float y = location;
+  textSize(location);
+  text(s, x, y);
+  x += textWidth(s) + location;
+  y -= location;
+  if (player == 1) {
+    float center = location / 2;
+    x += center;
+    y += center;
+    noFill();
+    ellipse(x, y, location, location);
+  } else {
+    line(x, y, x + location, y + location);
+    line(x + location, y, x, y + location);
+  }  
+  popMatrix();
+}
 
 void mousePressed() {
   if (!done) {
+
     boolean found = false;
     Square current = null;
     for (int i = 0; i < boxes.length; i++)
@@ -69,8 +94,8 @@ void mousePressed() {
 }
 
 void reset() {
-  float x = width / 2 - 1.5 * size;
-  float y = height / 2 - 1.5 * size;
+  float x = (width - 3 * size) / 2;
+  float y = (height - 3 * size) / 2;
 
   done = false;
 
@@ -85,11 +110,13 @@ void reset() {
 void endGame(int winner) {
   updateSquares();
   done = true;
-  fill(128);
+  pushMatrix();
+  fill(255);
   float textHeight = size * .5;
   textSize(textHeight);
   String s = "Player " + winner + " won!";
-  text(s, (width - textWidth(s)) / 2, height / 2 - 5 * textHeight);
+  text(s, (width - textWidth(s)) / 2, (height - textHeight) / 2);
+  popMatrix();
 }
 
 void keyPressed() {
