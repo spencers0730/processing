@@ -1,6 +1,6 @@
 final int inputs = 5;
-final int hiddenNum = 0;
-final int[] hiddenNeurons = new int[]{5};
+final int hiddenNum = 2;
+final int[] hiddenNeurons = new int[]{5, 7};
 final int outputs = inputs;
 final float lr = 1;
 

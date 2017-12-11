@@ -26,16 +26,16 @@ void setup() {
 
 
 
-//sigmoid illustrationx
-//float mx = 0;
-//float r = 5;
-//void draw() {
-//  if (mx != mouseX) {
-//    mx = mouseX;
-//    r = sq(map(mouseX, 0, width, 1, 10));
-//    for (int i =0; i < width; i++) {
-//      float y = map(sigmoid(map(i, 0, width, -r, r)), 0, 1, height, 0);
-//      point(i, y);
-//    }
-//  }
-//}
+//sigmoid illustration
+float mx = 0;
+float r = 5;
+void draw() {
+  if (mx != mouseX) {
+    mx = mouseX;
+    r = sq(map(mouseX, 0, width, 1, 10));
+    for (int i =0; i < width; i++) {
+      float y = map(sigmoid(map(i, 0, width, -r, r)), 0, 1, height, 0);
+      point(i, y);
+    }
+  }
+}
