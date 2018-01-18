@@ -6,7 +6,7 @@ boolean mouse;
 boolean wind;
 boolean show;
 
-final float target = 20;
+final float target = 10;
 final float corner = .5 *2* sqrt(2) * target;
 final float k = .01;
 final float PULL = 5;
@@ -27,7 +27,7 @@ void setup() {
   flag = loadImage("flag.png");
 
   maxX = int(width / target * .5) - 1;
-  maxY = int(width / target * .3) - 1;
+  maxY = int(height / target * .7) - 1;
 
   setPoints();
 }
