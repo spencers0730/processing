@@ -16,10 +16,10 @@ void setup() {
   noStroke();
 
   balls = new ArrayList<Ball>();
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 2; i++) {
     float x = random(width);
     float y = random(height);
-    float r = random(1, 1); 
+    float r = random(30, 30); 
     addBall(x, y, r);
   }
 }
@@ -30,8 +30,6 @@ void draw() {
       background(0); 
     float totalMass = 0;
     float totalMomentum = 0;
-    for (Ball b : balls)
-      b.reset();
     for (Ball b : balls) {
       b.update(balls, edges, lines, collide, gravity);
       float m = b.getMass();
@@ -80,11 +78,11 @@ void mousePressed() {
 void addBall(float x, float y, float r) {
   PVector pos = new PVector(min(max(r, x), width - r), min(max(r, y), height - r));
   float angle = random(2 * PI);
-  PVector vel = PVector.fromAngle(angle).setMag(2);
+  PVector vel = PVector.fromAngle(angle).setMag(0);
   float d = 1; 
-  //if (random(1) < .5) {
-  //  d *= -1;
-  //}
+  if (random(1) < .5) {
+    d *= -1;
+  }
   Ball b = new Ball(pos, vel, r, d); 
   balls.add(b);
 }

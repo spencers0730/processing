@@ -40,9 +40,9 @@ void reset() {
 
 boolean decide(int i, int j) {
   //return random(1) < .5;
-  //return i < cells.length / 2;
+  return i < cells.length / 2;
   //return (i * j) % 6 == 0;
-  return i % 2 == 0;
+  //return i % 2 == 0;
 }
 
 void iterate() {
