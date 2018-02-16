@@ -20,7 +20,7 @@ public class Ball {
     this.acc = new PVector(0, 0);
     this.rad = rad;
     this.d = d;
-    this.mass = this.d * sq(this.rad);
+    this.mass = this.d * pow(this.rad, 3);
     colorMode(HSB);
     this.c = color(random(255), 255, 255);
     if (this.d < 0) {
@@ -28,7 +28,7 @@ public class Ball {
       this.c = color(255);
     }
   }
-
+  
   public PVector getPos() {
     return this.pos.copy();
   }

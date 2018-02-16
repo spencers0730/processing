@@ -16,10 +16,10 @@ void setup() {
   noStroke();
 
   balls = new ArrayList<Ball>();
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 10000; i++) {
     float x = random(width);
     float y = random(height);
-    float r = random(30, 30); 
+    float r = random(1, 1); 
     addBall(x, y, r);
   }
 }
