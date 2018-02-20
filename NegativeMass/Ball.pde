@@ -1,11 +1,18 @@
 public class Ball {
   private final static float accuracy = 1;
+  private final static float timeMult = 1 / Ball.accuracy;
+
   private final static float multVecDraw = 10;
-  private final static float gravityMult = .15;
+  
+  private final static float normalMult = 1;
+  private final static float gravityMult = .01;
+  
 
   private PVector pos;
   private PVector vel;
   private PVector acc;
+
+  private PVector force;
 
   private float rad;
   private float d;
@@ -17,7 +24,7 @@ public class Ball {
   public Ball(PVector pos, PVector vel, float rad, float d) {
     this.pos = pos;
     this.vel = vel;
-    this.acc = new PVector(0, 0);
+    this.force = new PVector(0, 0);
     this.rad = rad;
     this.d = d;
     this.mass = this.d * pow(this.rad, 3);
@@ -28,7 +35,7 @@ public class Ball {
       this.c = color(255);
     }
   }
-  
+
   public PVector getPos() {
     return this.pos.copy();
   }
@@ -45,18 +52,18 @@ public class Ball {
     return this.rad;
   }
 
-  public void addAcc(PVector add) {
-    this.acc.add(add);
-  }
-
   public void update(ArrayList<Ball> others, boolean edges, boolean lines, boolean collide, boolean gravity) {
-    this.acc = new PVector(0, 0);
     for (int i = 0; i < Ball.accuracy; i++) {
       this.forces(others, collide, gravity); 
-      this.vel.add(this.acc.copy().mult(1/Ball.accuracy));
-      this.pos.add(this.vel.copy().mult(1/Ball.accuracy)); 
+      this.acc = this.force.copy().mult(1 / this.mass);
+      this.vel.add(this.acc.mult(timeMult));
       this.edges(edges);
     }
+    this.force.mult(0);
+  }
+
+  public void move() {
+    this.pos.add(this.vel.copy().mult(timeMult)); 
     this.show();
     if (lines)
       this.showLines();
@@ -65,16 +72,18 @@ public class Ball {
   private void forces(ArrayList<Ball> others, boolean collide, boolean gravity) {
     for (Ball b : others) {
       if (b != this) {
-        PVector diff = b.getPos().sub(this.pos); 
-        float min = (this.rad + b.getRad()); 
+        PVector diff = b.pos.copy().sub(this.pos); 
+        float min = (this.rad + b.rad); 
         boolean colliding = diff.mag() < min;
         if (gravity || (collide && colliding)) {
+          float mag = this.mass * b.mass / diff.magSq(); 
           if (colliding)
-            diff.mult(-1);
-          float mag = Ball.gravityMult * this.mass * b.getMass() / diff.magSq(); 
+            mag *= -Ball.gravityMult;  
+            else 
+            mag *= Ball.gravityMult;
           diff.setMag(mag); 
-          PVector force = diff.mult(1/accuracy);
-          this.acc.add(force.mult(1/this.mass));
+          PVector grav = diff.mult(timeMult);
+          this.force.add(grav);
         }
       }
     }
@@ -85,7 +94,6 @@ public class Ball {
     pushMatrix(); 
     translate(this.pos.x, this.pos.y); 
     stroke(c); 
-    //strokeWeight(3);
     line(0, 0, l.x * m, l.y * m); 
     popMatrix();
   }

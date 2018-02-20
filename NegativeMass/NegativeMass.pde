@@ -16,7 +16,7 @@ void setup() {
   noStroke();
 
   balls = new ArrayList<Ball>();
-  for (int i = 0; i < 10000; i++) {
+  for (int i = 0; i < 2000; i++) {
     float x = random(width);
     float y = random(height);
     float r = random(1, 1); 
@@ -35,6 +35,10 @@ void draw() {
       float m = b.getMass();
       totalMass += m;
       totalMomentum += b.getVelMag() * m;
+    }
+    
+    for(Ball b : balls) {
+      b.move();
     }
     String tM = totalMass + " mass units";
     String tP = totalMomentum + " moementum units";
@@ -80,9 +84,9 @@ void addBall(float x, float y, float r) {
   float angle = random(2 * PI);
   PVector vel = PVector.fromAngle(angle).setMag(0);
   float d = 1; 
-  if (random(1) < .5) {
-    d *= -1;
-  }
+  //if (random(1) < .5) {
+  //  d *= -1;
+  //}
   Ball b = new Ball(pos, vel, r, d); 
   balls.add(b);
 }
