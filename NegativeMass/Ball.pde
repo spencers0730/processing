@@ -1,11 +1,11 @@
 public class Ball {
-  private final static float accuracy = 1;
+  private final static float accuracy = 2;
   private final static float timeMult = 1 / Ball.accuracy;
 
   private final static float multVecDraw = 10;
   
-  private final static float normalMult = 1;
-  private final static float gravityMult = .01;
+  private final static float normalMult = .1;
+  private final static float gravityMult = 1;
   
 
   private PVector pos;
@@ -78,7 +78,7 @@ public class Ball {
         if (gravity || (collide && colliding)) {
           float mag = this.mass * b.mass / diff.magSq(); 
           if (colliding)
-            mag *= -Ball.gravityMult;  
+            mag *= -Ball.normalMult;  
             else 
             mag *= Ball.gravityMult;
           diff.setMag(mag); 

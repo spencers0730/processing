@@ -19,7 +19,7 @@ void setup() {
   for (int i = 0; i < 2000; i++) {
     float x = random(width);
     float y = random(height);
-    float r = random(1, 1); 
+    float r = random(1, 2); 
     addBall(x, y, r);
   }
 }
