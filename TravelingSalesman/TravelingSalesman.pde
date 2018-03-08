@@ -45,7 +45,7 @@ void draw()
           if(currentDist < minDist || minDist < 0)
           {
             minDist = currentDist;
-            current[h]
+            //current[h]
             found = true;
           }
         }

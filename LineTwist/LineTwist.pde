@@ -1,4 +1,4 @@
- final float MAG = .05;
+x final float MAG = .05;
 final int MINLIFE = 30;
 final int MAXLIFE = 60;
 

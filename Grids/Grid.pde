@@ -122,8 +122,6 @@ class Grid {
         this.points[i][j].show();
         shown++;
       }
-      
-      println(timesUp, shown);
   }
 
   float windAngle(float x, float y) {
