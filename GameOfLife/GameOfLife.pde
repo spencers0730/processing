@@ -1,6 +1,6 @@
 Cell[][] cells;
 
-final float size = 10;
+final float size = 1;
 int x; 
 int y;
 
@@ -36,8 +36,8 @@ void reset() {
 }
 
 boolean decide(int i, int j) {
-  return random(1) < .5;
-  //return i * j % 7 == 0;
+
+  return i * j % 7 == 0;
 }
 
 void iterate() {

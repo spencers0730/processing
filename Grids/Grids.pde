@@ -1,8 +1,8 @@
-final float target = 3;
+final float target = 15;
 final float corner = .5 *2* sqrt(2) * target;
-final float k = .00005;
+final float k = .0001;
 final float PULL = 1;
-final float GRAV = .01;
+final float GRAV = .1;
 final float WIND = .001;
 final float MIN_GRAV_DIST = 2;
 final float DRAG_CONST = .991;
@@ -19,7 +19,7 @@ boolean pause = false;
 void setup() {
   fullScreen(P2D);
 
-  g = new Grid[1];
+  g = new Grid[2];
   restart();
 }
 
@@ -33,10 +33,10 @@ void draw() {
 }
 
 void restart() {
-  int x = int(width / target);
-  int y = int(height / target); 
+  int x = int(width / target / 2);
+  int y = int(height / target / 2); 
   for (int i = 0; i < g.length; i++)
-    g[i] = new Grid(target / 2, target / 2, x, y, 
+    g[i] = new Grid(target / 2 * (i + 1), target / 2 * (i + 1), x, y, 
       target, k, PULL, WIND, GRAV, MIN_GRAV_DIST, BUFFER, target * .25, DRAG_CONST, .0025, .00025);
 }
 

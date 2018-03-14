@@ -32,7 +32,7 @@ void draw() {
 }
 
 void mousePressed() {
-  spawnBall(1000);
+  spawnBall(10000);
 }
 
 void spawnBall(int num) {
