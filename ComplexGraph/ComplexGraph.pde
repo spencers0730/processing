@@ -2,13 +2,13 @@ float minX, minY, maxX, maxY;
 float real, imag;
 
 void setup() {
-  size(1000, 1000);
-  //fullScreen(P2D);
+  //size(1000, 1000);
+  fullScreen(P2D);
   colorMode(HSB);
   noLoop();
 
-  minX = -2;
-  minY = -2;
+  minX = -3;
+  minY = -3;
   maxX = 2;
   maxY = 2;
 }
@@ -24,10 +24,10 @@ void draw() {
       float hu = 255 / TWO_PI * arg_z;
       float l = 255 * (1 - pow(2, -sqrt(sq(imag) + sq(real))));
       float s = 255;
-      
-      if(prox(real, .005, .25) || prox(imag, .005, .25)){
-        s = 0;
-      }
+
+      //if(prox(real * real, .005 / abs(real), .25) || prox(imag * imag, .005 / abs(imag), .25)){
+      //  s = 0;
+      //}
 
       set((int)x, (int)y, color(hu, s, l));
     }
@@ -39,6 +39,6 @@ void complexFunc(float a, float b) {
   imag = 3 * pow(a, 2) * b - pow(b, 3);
 }
 
-boolean prox(float x, float min, float mult){
+boolean prox(float x, float min, float mult) {
   return min / mult > Math.abs(Math.rint(x / mult) - x / mult);
 }
