@@ -37,6 +37,10 @@ void draw() {
 void complexFunc(float a, float b) {
   real = pow(a, 3) - 2 * a * pow(b, 2) - 1;
   imag = 3 * pow(a, 2) * b - pow(b, 3);
+  //imag = a / b;
+  //real = b / a;
+  //real = pow(a, 2) - pow(b, 2);
+  //imag = -2 * a * b;
 }
 
 boolean prox(float x, float min, float mult) {

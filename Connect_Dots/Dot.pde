@@ -29,9 +29,12 @@ class Dot {
         float dist = pos.copy().sub(d.pos).magSq();
         if (dist < parent.minConnectSq) {
           pushMatrix();
-          stroke(255);
+          float w = 2* map(dist, 0, parent.minConnectSq, parent.maxWidth, parent.minWidth);
+          float t = map(dist, 0, parent.minConnectSq, 255, 0);
+          //stroke(255);
           noFill();
-          strokeWeight(map(dist, 0, parent.minConnectSq, parent.maxWidth, parent.minWidth));
+          strokeWeight(w);
+          stroke(t, 255, 255);
           line(pos.x, pos.y, d.pos.x, d.pos.y);
           popMatrix();
         }

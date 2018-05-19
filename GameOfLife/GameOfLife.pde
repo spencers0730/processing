@@ -1,8 +1,9 @@
 Cell[][] cells;
 
-final float size = 1;
+final float size = 10;
 int x; 
 int y;
+int itrSpeed;
 
 boolean PAUSE;
 
@@ -13,6 +14,7 @@ void setup() {
 }
 
 void draw() {
+  print(itrSpeed);
   if (!PAUSE) {
     iterate();
   }
@@ -25,6 +27,8 @@ void reset() {
 
   x = int(width / size);
   y = int(height / size);
+
+  itrSpeed = 1;
 
   cells = new Cell[x][y];
 
@@ -41,39 +45,41 @@ boolean decide(int i, int j) {
 }
 
 void iterate() {
-  for (int j = 0; j < cells[0].length; j++)
-    for (int i = 0; i < cells.length; i++) {
-      Cell current = cells[i][j];
-      boolean state = current.state;
+  for (int itr = 0; itr < itrSpeed; itr++) {
+    for (int j = 0; j < cells[0].length; j++)
+      for (int i = 0; i < cells.length; i++) {
+        Cell current = cells[i][j];
+        boolean state = current.state;
 
-      int neighbors = 0;
+        int neighbors = 0;
 
-      for (int i2 = -1; i2 <= 1; i2++)
-        for (int j2 = -1; j2 <= 1; j2++) {
-          if (!(i2 == 0 & j2 == 0)) {
-            int i3 = mod((i + i2), cells.length);
-            int j3 = mod((j + j2), cells[0].length);
-            if (cells[i3][j3].state)
-              neighbors++;
+        for (int i2 = -1; i2 <= 1; i2++)
+          for (int j2 = -1; j2 <= 1; j2++) {
+            if (!(i2 == 0 & j2 == 0)) {
+              int i3 = mod((i + i2), cells.length);
+              int j3 = mod((j + j2), cells[0].length);
+              if (cells[i3][j3].state)
+                neighbors++;
+            }
           }
+        //if (neighbors != current.lastNeighbors) {
+        if (state) {
+          if (neighbors > 3 || neighbors < 2)
+            state = false;
+        } else {
+          if (neighbors == 3)
+            state = true;
         }
-      //if (neighbors != current.lastNeighbors) {
-      if (state) {
-        if (neighbors > 3 || neighbors < 2)
-          state = false;
-      } else {
-        if (neighbors == 3)
-          state = true;
+
+        cells[i][j].next(state, neighbors);
       }
 
-      cells[i][j].next(state, neighbors);
-    }
-  //}
 
-  for (int i = 0; i < cells.length; i++)
-    for (int j = 0; j < cells[0].length; j++) {
-      cells[i][j].update();
-    }
+    for (int i = 0; i < cells.length; i++)
+      for (int j = 0; j < cells[0].length; j++) {
+        cells[i][j].update();
+      }
+  }
 }
 
 void killAll() {
@@ -87,8 +93,8 @@ void killAll() {
 
 
 void mousePressed() {
-  int i = int(mouseX / size);
-  int j = int(mouseY / size);
+  int i = int((mouseX-1) / size);
+  int j = int((mouseY-1) / size);
   Cell c = cells[i][j];
   if (c.state) {
     c.nextState = false;
@@ -116,6 +122,17 @@ void keyPressed() {
     break;
   case 'k':
     killAll();
+  case CODED:
+    switch(keyCode) {
+    case LEFT:
+      itrSpeed -= 1;
+      break;
+    case RIGHT:
+      itrSpeed += 1;
+      break;
+    }
+    //itrSpeed = constrain(itrSpeed, 0, 20);
+    break;
   }
 }
 
