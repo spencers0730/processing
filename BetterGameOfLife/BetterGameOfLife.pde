@@ -1,6 +1,6 @@
 boolean[][] cells, _cells;
 
-final float size = 4;
+final float size = 2;
 
 final color on = color(255), off = color(0);
 
@@ -27,7 +27,7 @@ void reset() {
   _cells = new boolean[cells.length][cells[0].length];
   for (int i = 0; i < cells.length; i++) {
     for (int j = 0; j < cells[i].length; j++) {
-      cells[i][j] = i * j % 5 == 0 ;//random(1) < .1;
+      cells[i][j] = random(1) < .5;
     }
   }
 }
