@@ -1,6 +1,6 @@
 boolean[][] cells, _cells;
 
-final float size = 2;
+final float size = 1;
 
 final color on = color(255), off = color(0);
 
@@ -18,7 +18,7 @@ void setup() {
 
 void reset() {    
   game.beginDraw(); 
-  game.background(0);
+  game.background(off);
   game.endDraw();
 
   run = true;
