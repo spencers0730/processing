@@ -7,7 +7,7 @@ boolean wind;
 boolean show;
 
 final float target = 10;
-final float corner = .5 *2* sqrt(2) * target;
+final float corner = sqrt(2) * target;
 final float k = .01;
 final float PULL = 5;
 final float GRAV = .005;

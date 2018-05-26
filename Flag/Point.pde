@@ -1,8 +1,9 @@
-final float increment = .00025;
+final float increment = .005;
+final float timeStep = .000001;
 float z = 0;
 
 float angle(float x, float y) {
-  z += increment / 100;
+  z += timeStep;
   return map(noise(x * increment, y * increment, z), 0, 1, -TWO_PI, TWO_PI);
 }
 
