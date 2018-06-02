@@ -44,8 +44,12 @@ void setPoints() {
   background(0);
 }
 
+int frame;
 void draw() {
+    saveFrame("frames/frame" + frame + ".tif");
+  frame++;
   background(0);
+
   //pushMatrix();
   //noStroke();
   //fill(0, 64);

@@ -19,7 +19,7 @@ boolean pause = false;
 void setup() {
   fullScreen(P2D);
 
-  g = new Grid[1];
+  g = new Grid[10];
   restart();
 }
 

@@ -1,15 +1,11 @@
-  Grid g;
-boolean gravity;
+Grid g;
+
 void setup() {
   fullScreen();
-  g = new Grid(10, 10, 20, .00001, .001, 3);
-  gravity = false;
+  g = new Grid(100, 50, 0, 0, 10, 5, .1);
 }
 void draw() {
   background(0);
-  g.update(gravity);
-}
-
-void mousePressed(){
-  gravity = !gravity;
+  g.update();
+  
 }

@@ -1,42 +1,30 @@
 class Node {
-  private PVector pos, vel, force;
-  private Grid parent;
-  private List<Node> neighbors;
+   PVector pos, vel;
 
-  Node(Grid parent, float xP, float yP) {
-    this.parent = parent;
+  Node(float xP, float yP) {
     this.pos = new PVector(xP, yP);
-    this.vel = new PVector(0, 0);    
-    this.force = new PVector(0, 0);
+    this.vel = new PVector(0, 0);
   }
 
-  PVector getPos() {
-    return this.pos.copy();
-  }
-
-  void spring() {
-    if (this.neighbors == null)
-      this.neighbors = this.parent.getNeighbors(this);
-    for (Node o : this.neighbors) {
-      PVector f = PVector.sub(this.pos, o.pos);
-      stroke(map(f.magSq(), 0, this.parent.getDistSq(), 128, 255));
-      line(this.pos.x, this.pos.y, o.pos.x, o.pos.y);
-      f.setMag(sqrt((f.magSq() - this.parent.getDistSq()) * this.parent.getSpringK()));
-      this.force.add(f);
-    }
+  void spring(Node o, float k, float space) {
+    PVector sub = PVector.sub(this.pos, o.pos);
+    sub.setMag((sub.mag() - space));
+    stroke(map(sub.magSq(), 0, sq(space), 128, 255));
+    line(this.pos.x, this.pos.y, o.pos.x, o.pos.y);
+    sub.mult(k);
+    o.vel.add(sub);
+    sub.mult(-1);
+    this.vel.add(sub);
   }
   
-  void gravitate(PVector point){
-    PVector f = PVector.sub(point, this.pos);
-    f = f.copy().setMag(this.parent.getMassSq()).div(f.magSq());
-    this.force.add(f);
+  void gravitate(float x, float y, float g){
+    PVector sub = (new PVector(x, y)).sub(this.pos);
+    sub.setMag(g / max(.1, sub.magSq()));
+    this.vel.add(sub);
   }
 
-  void update() {
-    this.vel.add(this.force.div(this.parent.getMass()));
-    this.pos.add(this.vel);
-    float size = this.parent.getSize();
+  void update(float size) {
     ellipse(this.pos.x, this.pos.y, size, size);
-    this.force = new PVector(0, 0);
+    this.pos.add(this.vel);
   }
 }

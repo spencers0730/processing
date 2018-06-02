@@ -1,73 +1,47 @@
-import java.util.*;
 class Grid {
-  private ArrayList<Node> nodes;
-  private float springK;
-  private float dist, distSq;
-  private float mass, massSq;
-  private float size;
+  private Node[][] nodes;
+  private float k, size;
+  private float space, diagSpace;
 
-  Grid(int w, int h, float dist, float mass, float springK, float size) {
-    nodes = new ArrayList<Node>();
-    this.mass = mass;
-    this.massSq = sq(mass);
-    this.springK = springK;
-    this.dist = dist;
-    this.distSq = sq(dist);
-    this.size = size;
-    for (int i = 0; i < w; i++) {
-      for (int j = 0; j < h; j++) {
-        nodes.add(new Node(this, dist * i, dist * j));
-      }
+  public Grid(int w, int h, float x, float y, float space, float size, float k) {
+    this.nodes = new Node[w][h];
+    for (int i = 0; i < nodes.length; i++)
+      for (int j = 0; j < nodes[i].length; j++) {
+        nodes[i][j] = new Node(x + i * space, y + j * space);
+      }    
+    this.k = k;
+    this.space = space;
+    this.diagSpace = sqrt(2) * space;
+  }
+
+  public void update() {    
+    //this.nodes[0][0].pos = new PVector(mouseX, mouseY);
+    //this.nodes[this.nodes.length-1][this.nodes[0].length-1].pos = new PVector(mouseX +100, mouseY+100);
+
+    pushMatrix();
+    noFill();
+    for (int i = 0; i < nodes.length; i++)
+      for (int j = 0; j < nodes[i].length; j++) {
+        if (i + 1 < nodes.length) {
+          this.nodes[i][j].spring(this.nodes[i + 1][j], this.k, this.space);
+          if (j + 1 < nodes[0].length)
+            this.nodes[i][j].spring(this.nodes[i + 1][j + 1], this.k, this.diagSpace);
+          if (j - 1 > 0)
+            this.nodes[i][j].spring(this.nodes[i + 1][j - 1], this.k, this.diagSpace);
+        }
+        if (j + 1 < nodes[0].length)
+          this.nodes[i][j].spring(this.nodes[i][j + 1], this.k, this.space);
+      this.nodes[i][j].gravitate(mouseX, mouseY, 10);
     }
-  }
+    popMatrix();
 
-  float getSpringK() {
-    return this.springK;
-  }
-  float getDistSq() {
-    return this.distSq;
-  }
 
-  float getMass() {
-    return this.mass;
-  }
-
-  float getMassSq() {
-    return this.massSq;
-  }
-  float getSize() {
-    return this.size;
-  }
-
-  List<Node> getNeighbors(Node n) {
-    List<Node> neighbors = new ArrayList<Node>();
-    PVector pos = n.getPos();
-    for (Node o : nodes) {
-      if (o.getPos().sub(pos).magSq() <= this.distSq) {
-        neighbors.add(o);
-      }
-    }
-    return neighbors;
-  }
-
-  void update(boolean g) {
     pushMatrix();
     fill(255);
     noStroke();
-    for (Node n : nodes) {
-      n.update();
-    //  if(random(1) < .05)
-    //  n.vel.add(.1, .5);
-    }
-    for (Node n : nodes) {
-      n.spring();
-    }
-    if (g) {
-      PVector mouse = new PVector(mouseX, mouseY);
-      for (Node n : nodes) {
-        n.gravitate(mouse);
-      }
-    }
+    for (Node[] r : this.nodes)
+      for (Node n : r)
+        n.update(size);
     popMatrix();
   }
 }
