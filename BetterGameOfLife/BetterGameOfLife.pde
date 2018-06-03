@@ -152,10 +152,10 @@ void draw() {
   text("Speed: " + speed, 0, 2 * textSize);
   text("Current Size: " + currentSize, 0, 3 * textSize);
   text("Size: " + size, 0, 4 * textSize);
-
+  
   //for recording, save frames and increment frame to make movie
   if (record) {
-    String f = ("0000" + frame).substring((""+frame).length());
+    String f = nf(frame, 4);
     saveFrame("frames/" + f + ".png");
     frame++;
   }
