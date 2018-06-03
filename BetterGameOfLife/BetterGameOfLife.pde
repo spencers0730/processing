@@ -1,17 +1,30 @@
 boolean[][] cells, _cells;
-final float size = 1;
+
+final float maxSize = 20, minSize = 1;
+
+float size, currentSize;
+
+final int maxSpeed = 20, minSpeed = 1;
+int speed;
 
 final color on = color(255), off = color(0);
+final float textSize = 10;
 
 boolean run;
-int speed;
+
+boolean record;
+int frame;
 
 PGraphics game;
 
 void setup() {
   fullScreen();
   game = createGraphics(width, height);
-  textSize(10);
+  textSize(textSize);
+  size = 5;
+  speed = 1;
+  frame = 0;
+  record = false;
   reset();
 }
 
@@ -21,7 +34,7 @@ void reset() {
   game.endDraw();
 
   run = true;
-  speed = 1;
+  currentSize = size;
   cells = new boolean[int(width / size)][int(height / size)];
   _cells = new boolean[cells.length][cells[0].length];
   for (int i = 0; i < cells.length; i++) {
@@ -98,8 +111,17 @@ void draw() {
 
   image(game, 0, 0);
   fill(255);
-  text(str(frameRate), 0, 10);
-  text(str(speed), 0, 20);
+  text(str(frameRate), 0, textSize);
+  text("Speed: " + speed, 0, 2 * textSize);
+  text("Current Size: " + currentSize, 0, 3 * textSize);
+  text("Size: " + size, 0, 4 * textSize);
+
+
+  if (record) {
+    String f = ("0000" + frame).substring((""+frame).length());
+    saveFrame("frames/" + f + ".png");
+    frame++;
+  }
 }
 
 
@@ -111,13 +133,25 @@ void keyPressed() {
   case 'r':
     reset();
     break;
+  case 'e':
+    record = !record;
+    break;
   case CODED:
     switch(keyCode) {
+    case UP:
+      if (size < maxSize)
+        size++;
+      break;
+    case DOWN:
+      if (size > minSize)
+        size--;
+      break;
     case RIGHT:
-      speed++;
+      if (speed < maxSpeed)
+        speed++;
       break;
     case LEFT:
-      if (speed > 1)
+      if (speed > minSpeed)
         speed--;
       break;
     }
@@ -131,5 +165,5 @@ void colorCell(int i, int j) {
   } else {
     game.fill(off);
   }
-  game.rect(size * i, size * j, size, size);
+  game.rect(currentSize * i, currentSize * j, currentSize, currentSize);
 }
