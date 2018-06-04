@@ -156,7 +156,7 @@ void draw() {
   //for recording, save frames and increment frame to make movie
   if (record) {
     String f = nf(frame, 4);
-    saveFrame("frames/" + f + ".png");
+    saveFrame("frames/" + f + ".tif");
     frame++;
   }
 }
