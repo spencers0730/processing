@@ -3,3 +3,4 @@
 *.mov
 BetterGameOfLife/frames/0002.tif
 *.tif
+*.DS_Store
