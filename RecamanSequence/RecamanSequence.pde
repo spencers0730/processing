@@ -4,28 +4,27 @@ int n = 30;
 
 void setup() {
   fullScreen();
-  ellipseMode(CENTER);
-  current = 1;
-  step = 1;
-  visited = new boolean[n];
-  background(255);
   stroke(0);
   noFill();
 }
-void draw(){  while (current + step <= n) {
+void draw() {  
+  background(255);
+  visited = new boolean[n];
+  current = 0;
+  step = 1;
+  while (current + step <= n) {
+    float a = PI;
+    int last = current;
     visited[current] = true;
-    float s = map(step, 1, n, 0, width);
-
-    if (current - step > 0 && !visited[current - step - 1]) {
-      current -= step;
-    } else {
+    if (current - step >= 0 && !visited[current - step]) {
+      current -= step;     
+      a -= PI;
+    } else { 
       current += step;
     }
     step++;
-
-    if (step % 2 == 0) {
-      arc(s * .75, height / 2, s, s, 0, PI);
-    } else {    
-      arc(s * .75 , height / 2, s, s, -PI, 0);
-    }
-  }}
+    float x = map((current + last) / 2, 1, n, 0, width);
+    float w = map(step, 1, n, width / n, width);
+    arc(x , height / 2, w, w, a - PI, a);
+  }
+}
