@@ -118,12 +118,17 @@ void reset()
 
 boolean isPrime(int n)
 {
-  if (n <= 1) return false;
-  if (n == 2) return true;
-  int s = ceil(sqrt(n));
-  for (int i = 2; i <= s; i++)
-  {
-    if (n % i == 0) return false;
-  }
-  return true;
+  //if (n <= 1) return false;
+  //if (n == 2) return true;
+  //int s = ceil(sqrt(n));
+  //for (int i = 2; i <= s; i++)
+  //{
+  //  if (n % i == 0) return false;
+  //}
+  //return true;
+  float k = 1/3.0;
+  float root = pow(n, k);
+  if(n == 5)
+  System.out.println(n +" "+(root) + " " + ((int) root) + " " + (root == (int) root));
+  return root == (int) root;
 }
