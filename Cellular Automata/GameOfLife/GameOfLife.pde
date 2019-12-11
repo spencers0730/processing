@@ -2,7 +2,6 @@
   Project: Conway's Game of Life
   For: AP Computer Science 2017-18 
   Author: Spencer Schoenberg
-
 */
 
 //declare gameboard that will house dead/living cells and what the last cells (_cells)
