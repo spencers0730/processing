@@ -1,36 +1,37 @@
 class Square
 {
-  long size;
-  long corner;
-  long x, y;
+  BigInteger size;
+  int corner;
+  BigInteger x, y;
   
   float start, end;
   
-  long cornerX, cornerY;
+  BigInteger cornerX, cornerY;
   
-  Square(long size, int corner, long x, long y)
+  Square(BigInteger size, int corner, BigInteger x, BigInteger y)
   {
-    this.size = size;
+    this.size = new BigInteger(size.toString());
     this.corner = corner;
-    this.x = x;
-    this.y = y;
+    this.x = new BigInteger(x.toString());
+    this.y = new BigInteger(y.toString());
     this.start = -(corner + 1) * HALF_PI;
     this.end = -(corner) * HALF_PI; 
     
-    this.cornerX = this.x;
-    this.cornerY = this.y;
+    this.cornerX = new BigInteger(this.x.toString());
+    this.cornerY = new BigInteger(this.y.toString());
     
     switch(corner)
     {
       case 0:
-      this.cornerY -= this.size;
+      this.cornerY =  this.cornerY.subtract(this.size);
       break;
       case 1:
-      this.cornerY -= this.size;
-      this.cornerX -= this.size;
+      this.cornerY =  this.cornerY.subtract(this.size);
+      this.cornerX =  this.cornerX.subtract(this.size);
       break;
       case 2:
-      this.cornerX -= this.size;
+      this.cornerX =  this.cornerX.subtract(this.size);
+      break;
     }
     
   }
@@ -38,7 +39,7 @@ class Square
   void update()
   {
     
-    if(this.size * scale > 5 && (this.x * scale >= -width/2 && this.x * scale <= width/2 && this.y * scale >= -height/2 && this.y * scale <= height/2))
+    if(this.size.floatValue() * scale > 5 && (this.x.floatValue() * scale >= -width/2 && this.x.floatValue() * scale <= width/2 && this.y.floatValue() * scale >= -height/2 && this.y.floatValue() * scale <= height/2))
     {
       pushMatrix();
       noFill();
@@ -49,14 +50,14 @@ class Square
       strokeWeight(1);
       translate(width / 2, height / 2);
       if(rect)
-        rect(scale * this.cornerX, scale * this.cornerY, scale * this.size, scale * this.size);
+        rect(scale * this.cornerX.floatValue(), scale * this.cornerY.floatValue(), scale * this.size.floatValue(), scale * this.size.floatValue());
       if(num)
       {
-        textSize(this.size * scale * TEXT_SCALE);
+        textSize(this.size.floatValue() * scale * TEXT_SCALE);
         String s = (this.size) + "";
-        text(s, (this.cornerX + this.size * 0.5) * scale - textWidth(s) * 0.5, (this.cornerY + this.size * 0.5) * scale);
+        text(s, (this.cornerX.floatValue() + this.size.floatValue() * 0.5) * scale - textWidth(s) * 0.5, (this.cornerY.floatValue() + this.size.floatValue() * 0.5) * scale);
       }
-      arc(this.x * scale, this.y * scale, this.size * 2 * scale, this.size * 2 * scale, this.start, this.end);
+      arc(this.x.floatValue() * scale, this.y.floatValue() * scale, this.size.floatValue() * 2 * scale, this.size.floatValue() * 2 * scale, this.start, this.end);
       popMatrix();
     }
   }
