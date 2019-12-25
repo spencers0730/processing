@@ -70,6 +70,8 @@ void draw() {
     text(INSTRUCT, -textWidth(INSTRUCT) * 0.5, -30);
     popMatrix();
   }
+  
+  saveFrame();
 }
 
 void keyPressed() {
