@@ -47,7 +47,7 @@ void setup()
   //Quick drawing 
   fullScreen(P2D);  
   //For colored mode
-  colorMode(HSB);
+  colorMode(HSB, 255);
 
   //Initial modes
   update = true;
@@ -96,7 +96,7 @@ void draw()
         int count = calc(actX, actY);
 
         //for coloring
-        int hu = ceil(map(count, 0, maxN, 0, 255));
+        int hu = ceil(map(sqrt(count), 0, sqrt(maxN), 0, 255));
         color col;
 
         //coloring black if bound or color if not
@@ -108,7 +108,7 @@ void draw()
             col = color(0);
           }
           //otherwise draw hu
-          else col = color(hu, 255, 255);
+          else col = color((170+hu)%255, 200, 255);
         } else //coloring B & W
         {
           col = color(hu);
